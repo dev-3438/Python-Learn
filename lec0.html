@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 0 – Python First Steps ✨</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --bg: #ffffff;
+            --text: #1f2937;
+            --accent: #0d9488;
+            --accent-dark: #115e59;
+            --surface: #f9fafb;
+            --border: #e5e7eb;
+        }
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --text: #f1f5f9;
+            --surface: #1e293b;
+            --border: #334155;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            transition: background .3s, color .3s;
+        }
+        .code-box {
+            background: #1e293b;
+            color: #e2e8f0;
+            border-radius: .75rem;
+            padding: 1.25rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .95rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .output-box {
+            background: #0f172a;
+            color: #10b981;
+            border-radius: .75rem;
+            padding: 1.25rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .95rem;
+            min-height: 3rem;
+            white-space: pre-wrap;
+        }
+        /* copy button */
+        .copy-btn {
+            position: absolute;
+            top: .75rem;
+            right: .75rem;
+            padding: .25rem .5rem;
+            font-size: .75rem;
+            background: rgba(255,255,255,.1);
+            border: 1px solid rgba(255,255,255,.2);
+            color: #fff;
+            border-radius: .5rem;
+            cursor: pointer;
+            transition: background .2s;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,.2);
+        }
+        /* scroll-reveal animation helper */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        /* tiny bounce for cta */
+        @keyframes bounce-once {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .bounce {
+            animation: bounce-once .6s ease;
+        }
+        /* celebration checkmark */
+        .check-celebration {
+            display: inline-block;
+            transform: scale(0);
+            animation: pop .4s forwards;
+        }
+        @keyframes pop {
+            to { transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body>
+<!-- =========  TOP BAR  ========= -->
+<nav class="sticky top-0 z-40 bg-teal-700 text-white shadow-lg">
+    <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+        <div class="text-2xl font-bold flex items-center gap-2">
+            <span class="hidden sm:inline">🐍</span> PythonLearn
+        </div>
+        <a href="course.html" class="text-sm sm:text-base hover:underline">← Back to Course</a>
+    </div>
+</nav>
+
+<!-- =========  MINI NAV  ========= -->
+<div class="lecture2-nav sticky top-16 z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur border-b border-gray-200 dark:border-gray-700">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap gap-2 justify-center">
+        <a href="lec0.html" class="px-4 py-2 rounded-full bg-teal-700 text-white shadow">Lecture 0</a>
+        <a href="lec1.html" class="px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">Lecture 1</a>
+        <a href="lec2.html" class="px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">Lecture 2</a>
+        <a href="lec3.html" class="px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">Lecture 3</a>
+        <a href="lec4.html" class="px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">Lecture 4</a>
+        <a href="lec5.html" class="px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">Lecture 5</a>
+        <a href="lec6.html" class="px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">Lecture 6</a>
+        <a href="lec7.html" class="px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">Lecture 7</a>
+        <a href="lec8.html" class="px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">Lecture 8</a>
+        <a href="lec9.html" class="px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">Lecture 9</a>
+    </div>
+</div>
+
+<!-- =========  MAIN CONTENT  ========= -->
+<main class="max-w-4xl mx-auto px-4 py-10">
+    <!-- hero -->
+    <header class="reveal mb-12 text-center">
+        <h1 class="text-4xl sm:text-5xl font-extrabold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-blue-500">Lecture 0 – Python First Steps</h1>
+        <p class="text-lg text-gray-600 dark:text-gray-300">Let’s write code that works, fix bugs, and make friends with functions—no experience needed!</p>
+    </header>
+
+    <!-- 1. first program -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2">
+            <span class="text-teal-600">👋</span> Functions
+        </h2>
+        <p class="mb-4">Functions are verbs or actions that the computer or computer language will already know how to perform. <br>
+In your hello.py program, the print function knows how to print to the terminal window. <br>
+The print function takes arguments. In this case, "hello, world" are the arguments that the print function takes. <br>
+</p>
+        <div class="code-box">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+print("Hello, world!")
+        </div>
+        <div class="output-box mt-2">Hello, world!</div>
+        <p class="mt-3">in this example print function is taking hello, world as a input and printing it out the terminal</p>
+    </section>
+
+    <!-- 2. bugs -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span class="text-red-500">🐛</span> 2. Bugs (They’re Friendly)</h2>
+        <p class="mb-4">Bugs are a natural part of coding. These are mistakes, problems for you to solve! Don’t get discouraged! This is part of the process of becoming a great programmer. <br>
+Imagine that in our hello.py program we accidentally typed print("hello, world", forgetting the final ) required by the print function. <br> If you make this mistake, the interpreter will output an error in the terminal window! <br>
+Error messages can often inform you of your mistakes and provide clues on how to fix them. However, there will be many times when the interpreter is not this helpful.
+</p>
+        <div class="code-box">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+print("Oops)
+        </div> <br>
+        <div class="output-box">SyntaxError: unterminated string literal</div>
+        <p class="mt-3">Read the last line, fix, rerun. That’s debugging!</p>
+    </section>
+
+    <!-- 3. comments -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span class="text-gray-500">💬</span> 3. Comments</h2>
+             <p class="mb-4">Comments are a way for programmers to track what they are doing in their programs and even inform others about their intentions for a block of code. <br> In short, they are notes for yourself and others who will see your code! <br>
+You can add comments to your program to be able to see what it is that your program is doing. You might edit your code as follows:
+
+
+</p>
+        <div class="code-box">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+# Ask the user for their name
+name = input("What's your name? ")
+print("hello,")
+print(name)
+        </div>
+    </section>
+
+    <!-- 4. pseudocode -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span class="text-purple-500">🧠</span> 4. Pseudocode – Think First, Code Later</h2>
+        <div class="code-box">
+# Pseudocode for greeting
+Ask the user for their name
+Say hello using that name
+        </div>
+        <p class="mt-3">Once the logic feels right, translate it into real code (see <em>input</em> below).</p>
+    </section>
+
+    <!-- 5. variables -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span class="text-indigo-500">📦</span> 5. Variables – Named Boxes</h2>
+        <div class="code-box">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+age = 18        # an integer
+name = "Ada"    # a string
+pi  = 3.14159   # a float
+        </div>
+        <p class="mt-3">Variables store data; the name should be clear (<code>age</code>, not <code>a</code>).</p>
+    </section>
+
+    <!-- 6. strings & f-strings -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span class="text-green-500">🧵</span> 6. Strings & f-strings</h2>
+        <div class="code-box">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+name = "Ada"
+print(f"Hello, {name}!")
+        </div>
+        <div class="output-box">Hello, Ada!</div>
+        <p class="mt-3">f-strings are readable, fast, and avoid messy plus signs.</p>
+    </section>
+
+    <!-- 7. numbers -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span class="text-orange-500">🔢</span> 7. Numbers – Integers & Floats</h2>
+        <div class="code-box">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+a = 7          # int
+b = 3.2        # float
+print(a + b)   # 10.2 (automatically becomes float)
+        </div>
+    </section>
+
+    <!-- 8. input -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span class="text-cyan-500">⌨️</span> 8. Input from Users</h2>
+        <div class="code-box">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+name = input("Name: ")
+print(f"Nice to meet you, {name}!")
+        </div>
+        <p class="mt-3"><code>input</code> always returns a string—convert when needed:</p>
+        <div class="code-box">
+year = int(input("Birth year: "))
+age  = 2025 - year
+print(f"You are roughly {age} years old.")
+        </div>
+    </section>
+
+    <!-- 9. functions -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span class="text-yellow-500">🔧</span> 9. Functions – Reusable Blocks</h2>
+        <div class="code-box">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+def greet():
+    print("Hi there!")
+    print("How are you?")
+
+greet()   # call it
+        </div>
+        <p class="mt-3"><strong>Principles of readability:</strong></p>
+        <ul class="list-disc ml-6">
+            <li>Name functions after what they <em>do</em> (<code>greet</code>, <code>calc_tax</code>).</li>
+            <li>Keep them small—one clear purpose.</li>
+            <li>Use comments sparingly; let the names talk.</li>
+        </ul>
+    </section>
+
+    <!-- 10. parameters & return -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span class="text-pink-500">↩️</span> 10. Parameters & Return Values</h2>
+        <div class="code-box">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+def add(a, b):        # a and b are parameters
+    return a + b
+
+result = add(3, 5)   # 8
+print(result)
+        </div>
+        <p class="mt-3">Without <code>return</code> the function gives <code>None</code> back.</p>
+    </section>
+
+    <!-- 11. live playground -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span class="text-teal-500">🚀</span> Live Playground</h2>
+        <p>Edit the code below and hit <strong>Run</strong>—no servers, no installs.</p>
+        <textarea id="playground" class="code-box w-full h-48 mt-3"># try your own ideas!
+name = input("Name: ")
+print(f"Hello, {name}!")</textarea>
+        <div class="flex items-center gap-3 mt-3">
+            <button onclick="runCode()" class="px-5 py-2 rounded-lg bg-teal-600 text-white hover:bg-teal-700 transition">▶ Run</button>
+            <button onclick="resetCode()" class="px-5 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">Reset</button>
+        </div>
+        <div id="playground-out" class="output-box mt-3">Output will appear here…</div>
+    </section>
+
+    <!-- 12. mini project -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span class="text-amber-500">🎯</span> Mini Project – Temperature Converter</h2>
+        <p>Put it all together. Copy → Run → Smile.</p>
+        <div class="code-box">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+def c_to_f(c):
+    return c * 9/5 + 32
+
+def f_to_c(f):
+    return (f - 32) * 5/9
+
+choice = input("Convert to (F)ahrenheit or (C)elsius? ").lower()
+temp   = float(input("Enter temperature: "))
+
+if choice == 'f':
+    print(f"{temp}°C = {c_to_f(temp):.1f}°F")
+else:
+    print(f"{temp}°F = {f_to_c(temp):.1f}°C")
+        </div>
+        <p class="mt-3">Got it working? <span id="celebrate" class="hidden"><span class="check-celebration">🎉</span> Nice job!</span></p>
+    </section>
+
+    <!-- 13. recap -->
+    <section class="reveal mb-12 p-6 bg-gradient-to-r from-teal-50 to-blue-50 dark:from-teal-900/20 dark:to-blue-900/20 rounded-xl">
+        <h2 class="text-2xl font-bold mb-3">You Can Now…</h2>
+        <ul class="list-disc ml-6 space-y-1">
+            <li>write, run and debug tiny Python scripts;</li>
+            <li>store data in clearly-named variables;</li>
+            <li>ask the user for input and display friendly output with f-strings;</li>
+            <li>create reusable functions that take parameters and return results;</li>
+            <li>follow basic style rules so other humans (including future-you) enjoy reading your code.
+        </ul>
+        <div class="mt-4">
+            <a href="lec1.html" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-teal-600 text-white hover:bg-teal-700 transition">Next Lecture →</a>
+        </div>
+    </section>
+</main>
+
+<!-- =========  FOOTER  ========= -->
+<footer class="bg-gray-900 text-white py-8 mt-12">
+    <div class="max-w-4xl mx-auto px-4 text-center text-gray-400">
+        © 2024 PythonLearn – built with ❤️ for every future Pythonista.
+    </div>
+</footer>
+
+<!-- =========  JS  ========= -->
+<script>
+/* ----- dark mode toggle (respects your nav) ----- */
+if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.setAttribute('data-theme','dark');
+} else {
+    document.documentElement.setAttribute('data-theme','light');
+}
+
+/* ----- scroll reveal ----- */
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            anime({ targets: entry.target, opacity: 1, translateY: 0, duration: 600, easing: 'easeOutQuad' });
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: .15 });
+reveals.forEach(el => observer.observe(el));
+
+/* ----- copy code ----- */
+function copyCode(btn) {
+    const box = btn.parentElement;
+    const code = box.textContent.trim();
+    navigator.clipboard.writeText(code);
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 1200);
+}
+
+/* ----- live runner (Skulpt) ----- */
+function outf(text) {
+    const out = document.getElementById('playground-out');
+    out.textContent += text;
+}
+function builtinRead(x) {
+    if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+        throw new Error("File not found: " + x);
+    return Sk.builtinFiles["files"][x];
+}
+function runCode() {
+    const prog = document.getElementById('playground').value;
+    document.getElementById('playground-out').textContent = '';
+    Sk.pre = "playground-out";
+    Sk.configure({ output: outf, read: builtinRead, __future__: Sk.python3 });
+    (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'playground-out';
+    const myPromise = Sk.misceval.asyncToPromise(() => Sk.importMainWithBody("<stdin>", false, prog, true));
+    myPromise.then(() => {
+        /* celebrate if temp converter output */
+        const out = document.getElementById('playground-out').textContent;
+        if (out.includes('°F') || out.includes('°C')) {
+            const cel = document.getElementById('celebrate');
+            cel.classList.remove('hidden');
+            cel.querySelector('span').classList.add('check-celebration');
+        }
+    }, err => {
+        document.getElementById('playground-out').textContent = err.toString();
+    });
+}
+function resetCode() {
+    document.getElementById('playground').value = `name = input("Name: ")
+print(f"Hello, {name}!")`;
+    document.getElementById('playground-out').textContent = 'Output will appear here…';
+}
+
+/* highlight current lecture */
+document.querySelectorAll('.lecture2-nav a').forEach(a => {
+    if (a.href.endsWith('lec0.html')) a.classList.add('bg-teal-700','text-white');
+});
+</script>
+</body>
+</html>
