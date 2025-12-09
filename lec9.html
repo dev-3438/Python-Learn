@@ -1,0 +1,833 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 7 – Regular Expressions ✨</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        :root { --bg: #ffffff; --text: #1f2937; --accent: #0d9488; --surface: #f9fafb; --border: #e5e7eb; }
+        [data-theme="dark"] { --bg: #0f172a; --text: #f1f5f9; --surface: #1e293b; --border: #334155; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); transition: background .3s, color .3s; }
+        .code-box { background: #1e293b; color: #e2e8f0; border-radius: .75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: .95rem; position: relative; overflow: hidden; }
+        .output-box { background: #0f172a; color: #10b981; border-radius: .75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: .95rem; min-height: 3rem; white-space: pre-wrap; }
+        .copy-btn { position: absolute; top: .75rem; right: .75rem; padding: .25rem .5rem; font-size: .75rem; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #fff; border-radius: .5rem; cursor: pointer; transition: background .2s; }
+        .copy-btn:hover { background: rgba(255,255,255,.2); }
+        .reveal { opacity: 0; transform: translateY(30px); }
+        .mini-nav { position: sticky; top: 64px; z-index: 30; background: var(--surface); border-bottom: 1px solid var(--border); }
+    </style>
+</head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 9 – Et Cetera ✨</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        :root { --bg: #ffffff; --text: #1f2937; --accent: #0d9488; --surface: #f9fafb; --border: #e5e7eb; }
+        [data-theme="dark"] { --bg: #0f172a; --text: #f1f5f9; --surface: #1e293b; --border: #334155; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); transition: background .3s, color .3s; }
+        .code-box { background: #1e293b; color: #e2e8f0; border-radius: .75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: .95rem; position: relative; overflow: hidden; }
+        .output-box { background: #0f172a; color: #10b981; border-radius: .75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: .95rem; min-height: 3rem; white-space: pre-wrap; }
+        .copy-btn { position: absolute; top: .75rem; right: .75rem; padding: .25rem .5rem; font-size: .75rem; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #fff; border-radius: .5rem; cursor: pointer; transition: background .2s; }
+        .copy-btn:hover { background: rgba(255,255,255,.2); }
+        .reveal { opacity: 0; transform: translateY(30px); }
+        .mini-nav { position: sticky; top: 64px; z-index: 30; background: var(--surface); border-bottom: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+<nav class="sticky top-0 z-40 bg-teal-700 text-white shadow-lg">
+    <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+        <div class="text-2xl font-bold flex items-center gap-2"><span class="hidden sm:inline">🐍</span> PythonLearn</div>
+        <a href="course.html" class="text-sm sm:text-base hover:underline">← Back to Course</a>
+    </div>
+</nav>
+
+<div class="mini-nav">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap gap-2 justify-center">
+        <a href="lec0.html" class="px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">Lecture 0</a>
+        <a href="lec1.html" class="px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">Lecture 1</a>
+        <a href="lec2.html" class="px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">Lecture 2</a>
+        <a href="lec3.html" class="px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">Lecture 3</a>
+        <a href="lec4.html" class="px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">Lecture 4</a>
+        <a href="lec5.html" class="px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">Lecture 5</a>
+        <a href="lec6.html" class="px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">Lecture 6</a>
+        <a href="lec7.html" class="px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">Lecture 7</a>
+        <a href="lec8.html" class="px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">Lecture 8</a>
+        <a href="lec9.html" class="px-4 py-2 rounded-full bg-teal-700 text-white shadow">Lecture 9</a>
+    </div>
+</div>
+
+<main class="max-w-4xl mx-auto px-4 py-10">
+    <header class="reveal mb-12 text-center">
+        <h1 class="text-4xl sm:text-5xl font-extrabold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-blue-500">Lecture 9 – Et Cetera</h1>
+        <p class="text-lg text-gray-600 dark:text-gray-300">The final toolbox: sets, type hints, unpacking, comprehensions, generators… and a spirited send-off!</p>
+    </header>
+
+    <!-- 1. Et Cetera (verbatim) -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span>📦</span> Et Cetera</h2>
+        <p class="mb-4">Over the many past lessons, we have covered so much related to Python! In this lesson, we will be focusing upon many of the “et cetera” items not previously discussed. “Et cetera” literally means “and the rest”! Indeed, if you look at the Python documentation, you will find quite “the rest” of other features.</p>
+    </section>
+
+    <!-- 2. set (verbatim) -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span>🔷</span> set</h2>
+        <p class="mb-4">In math, a set would be considered a set of numbers without any duplicates. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>students = [
+    {"name": "Hermione", "house": "Gryffindor"},
+    {"name": "Harry", "house": "Gryffindor"},
+    {"name": "Ron", "house": "Gryffindor"},
+    {"name": "Draco", "house": "Slytherin"},
+    {"name": "Padma", "house": "Ravenclaw"},
+]
+
+houses = []
+for student in students:
+    if student["house"] not in houses:
+        houses.append(student["house"])
+
+for house in sorted(houses):
+    print(house)</div>
+        <p class="mt-4">Notice how we have a list of dictionaries, each being a student. An empty list called houses is created. We iterate through each student in students. If a student’s house is not in houses, we append to our list of houses.</p>
+        <p class="mt-4">It turns out we can use the built-in set features to eliminate duplicates. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>students = [
+    {"name": "Hermione", "house": "Gryffindor"},
+    {"name": "Harry", "house": "Gryffindor"},
+    {"name": "Ron", "house": "Gryffindor"},
+    {"name": "Draco", "house": "Slytherin"},
+    {"name": "Padma", "house": "Ravenclaw"},
+]
+
+houses = set()
+for student in students:
+    houses.add(student["house"])
+
+for house in sorted(houses):
+    print(house)</div>
+        <p class="mt-4">Notice how no checking needs to be included to ensure there are no duplicates. The set object takes care of this for us automatically.</p>
+        <p class="mt-4">You can learn more in Python’s documentation of set.</p>
+    </section>
+
+    <!-- 3. Global Variables (verbatim) -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span>🌍</span> Global Variables</h2>
+        <p class="mb-4">In other programming languages, there is the notion of global variables that are accessible to any function. We can leverage this ability within Python. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>balance = 0
+
+
+def main():
+    print("Balance:", balance)
+
+
+if __name__ == "__main__":
+    main()</div>
+        <p class="mt-4">Notice how we create a global variable called balance, outside of any function.</p>
+        <p class="mt-4">Since no errors are presented by executing the code above, you’d think all is well. However, it is not! In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>balance = 0
+
+
+def main():
+    print("Balance:", balance)
+    deposit(100)
+    withdraw(50)
+    print("Balance:", balance)
+
+
+def deposit(n):
+    balance += n
+
+
+def withdraw(n):
+    balance -= n
+
+
+if __name__ == "__main__":
+    main()</div>
+        <p class="mt-4">Notice how we now add the functionality to add and withdraw funds to and from balance. However, executing this code, we are presented with an error! We see an error called UnboundLocalError. You might be able to guess that, at least in the way we’ve currently coded balance and our deposit and withdraw functions, we can’t reassign it a new value inside a function.</p>
+        <p class="mt-4">To interact with a global variable inside a function, the solution is to use the global keyword. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>balance = 0
+
+
+def main():
+    print("Balance:", balance)
+    deposit(100)
+    withdraw(50)
+    print("Balance:", balance)
+
+
+def deposit(n):
+    global balance
+    balance += n
+
+
+def withdraw(n):
+    global balance
+    balance -= n
+
+
+if __name__ == "__main__":
+    main()</div>
+        <p class="mt-4">Notice how the global keyword tells each function that balance does not refer to a local variable: instead, it refers to the global variable we originally placed at the top of our code. Now, our code functions!</p>
+        <p class="mt-4">Utilizing our powers from our experience with object-oriented programming, we can modify our code to use a class instead of a global variable. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>class Account:
+    def __init__(self):
+        self._balance = 0
+
+    @property
+    def balance(self):
+        return self._balance
+
+    def deposit(self, n):
+        self._balance += n
+
+    def withdraw(self, n):
+        self._balance -= n
+
+
+def main():
+    account = Account()
+    print("Balance:", account.balance)
+    account.deposit(100)
+    account.withdraw(50)
+    print("Balance:", account.balance)
+
+
+if __name__ == "__main__":
+    main()</div>
+        <p class="mt-4">Notice how we use account = Account() to create an account. Classes allow us to solve this issue of needing a global variable more cleanly because these instance variables are accessible to all the methods of this class utilizing self.</p>
+        <p class="mt-4">Generally speaking, global variables should be used quite sparingly, if at all!</p>
+    </section>
+
+    <!-- 4. Constants (verbatim) -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span>🔒</span> Constants</h2>
+        <p class="mb-4">Some languages allow you to create variables that are unchangeable, called “constants”. Constants allow one to program defensively and reduce the opportunities for important values to be altered. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>MEOWS = 3
+
+for _ in range(MEOWS):
+    print("meow")</div>
+        <p class="mt-4">Notice MEOWS is our constant in this case. Constants are typically denoted by capital variable names and are placed at the top of our code. Though this looks like a constant, in reality, Python actually has no mechanism to prevent us from changing that value within our code! Instead, you’re on the honor system: if a variable name is written in all caps, just don’t change it!</p>
+        <p class="mt-4">One can create a class “constant”, now in quotes because we know Python doesn’t quite support “constants”. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>class Cat:
+    MEOWS = 3
+
+    def meow(self):
+        for _ in range(Cat.MEOWS):
+            print("meow")
+
+
+cat = Cat()
+cat.meow()</div>
+        <p class="mt-4">Because MEOWS is defined outside of any particular class method, all of them have access to that value via Cat.MEOWS.</p>
+    </section>
+
+    <!-- 5. Type Hints (verbatim) -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span>🎯</span> Type Hints</h2>
+        <p class="mb-4">In other programming languages, one expresses explicitly what variable type you want to use. As we saw earlier in the course, Python does not require the explicit declaration of types. Nevertheless, it’s good practice need to ensure all of your variables are of the right type. mypy is a program that can help you test to make sure all your variables are of the right type. You can install mypy by executing in your terminal window: <code>pip install mypy</code>.</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def meow(n):
+    for _ in range(n):
+        print("meow")
+
+
+number = input("Number: ")
+meow(number)</div>
+        <p class="mt-4">You may already see that <code>number = input("Number: ")</code> returns a string, not an int. But meow will likely want an int!</p>
+        <p class="mt-4">A type hint can be added to give Python a hint of what type of variable meow should expect. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def meow(n: int):
+    for _ in range(n):
+        print("meow")
+
+
+number = input("Number: ")
+meow(number)</div>
+        <p class="mt-4">Notice, though, that our program still throws an error.</p>
+        <p class="mt-4">After installing mypy, execute <code>mypy meows.py</code> in the terminal window. mypy will provide some guidance about how to fix this error. You can annotate all your variables. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def meow(n: int):
+    for _ in range(n):
+        print("meow")
+
+
+number: int = input("Number: ")
+meow(number)</div>
+        <p class="mt-4">Notice how number is now provided a type hint. Again, executing <code>mypy meows.py</code> in the terminal window provides much more specific feedback to you, the programmer. We can fix our final error by coding as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def meow(n: int):
+    for _ in range(n):
+        print("meow")
+
+
+number: int = int(input("Number: "))
+meow(number)</div>
+        <p class="mt-4">Notice how running mypy now produces no errors because we cast our input to an integer.</p>
+        <p class="mt-4">Let’s introduce a new error by assuming that meow will return to us a string, or str. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def meow(n: int):
+    for _ in range(n):
+        print("meow")
+
+
+number: int = int(input("Number: "))
+meows: str = meow(number)
+print(meows)</div>
+        <p class="mt-4">Notice how the meow function has only a side effect. Because we only attempt to print “meow”, not return a value, an error is thrown when we try to store the return value of meow in meows.</p>
+        <p class="mt-4">We can further use type hints to check for errors, this time annotating the return values of functions. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def meow(n: int) -> None:
+    for _ in range(n):
+        print("meow")
+
+
+number: int = int(input("Number: "))
+meows: str = meow(number)
+print(meows)</div>
+        <p class="mt-4">Notice how the notation <code>-> None</code> tells mypy that there is no return value.</p>
+        <p class="mt-4">We can modify our code to return a string if we wish:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def meow(n: int) -> str:
+    return "meow\n" * n
+
+
+number: int = int(input("Number: "))
+meows: str = meow(number)
+print(meows, end="")</div>
+        <p class="mt-4">Notice how we store in meows multiple strs. Running mypy produces no errors.</p>
+        <p class="mt-4">You can learn more in Python’s documentation of Type Hints. You can learn more about mypy through the program’s own documentation.</p>
+    </section>
+
+    <!-- 6. Docstrings (verbatim) -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span>📝</span> Docstrings</h2>
+        <p class="mb-4">A standard way of commenting your function’s purpose is to use a docstring. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def meow(n):
+    """Meow n times."""
+    return "meow\n" * n
+
+
+number = int(input("Number: "))
+meows = meow(number)
+print(meows, end="")</div>
+        <p class="mt-4">Notice how the three double quotes designate what the function does.</p>
+        <p class="mt-4">You can use docstrings to standardize how you document the features of a function. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def meow(n):
+    """
+    Meow n times.
+
+    :param n: Number of times to meow
+    :type n: int
+    :raise TypeError: If n is not an int
+    :return: A string of n meows, one per line
+    :rtype: str
+    """
+    return "meow\n" * n
+
+
+number = int(input("Number: "))
+meows = meow(number)
+print(meows, end="")</div>
+        <p class="mt-4">Notice how multiple docstring arguments are included. For example, it describes the parameters taken by the function and what is returned by the function.</p>
+        <p class="mt-4">Established tools, such as Sphinx, can be used to parse docstrings and automatically create documentation for us in the form of web pages and PDF files such that you can publish and share with others. You can learn more in Python’s documentation of docstrings.</p>
+    </section>
+
+    <!-- 7. argparse (verbatim) -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span>🖥️</span> argparse</h2>
+        <p class="mb-4">Suppose we want to use command-line arguments in our program. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>import sys
+
+if len(sys.argv) == 1:
+    print("meow")
+elif len(sys.argv) == 3 and sys.argv[1] == "-n":
+    n = int(sys.argv[2])
+    for _ in range(n):
+        print("meow")
+else:
+    print("usage: meows.py [-n NUMBER]")</div>
+        <p class="mt-4">Notice how sys is imported, from which we get access to sys.argv, an array of command-line arguments given to our program when run. We can use several if statements to check whether the user has run our program properly.</p>
+        <p class="mt-4">Let’s assume that this program will be getting much more complicated. How could we check all the arguments that could be inserted by the user? We might give up if we have more than a few command-line arguments! Luckily, argparse is a library that handles all the parsing of complicated strings of command-line arguments. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-n")
+args = parser.parse_args()
+
+for _ in range(int(args.n)):
+    print("meow")</div>
+        <p class="mt-4">Notice how argparse is imported instead of sys. An object called parser is created from an ArgumentParser class. That class’s add_argument method is used to tell argparse what arguments we should expect from the user when they run our program. Finally, running the parser’s parse_args method ensures that all of the arguments have been included properly by the user.</p>
+        <p class="mt-4">We can also program more cleanly, such that our user can get some information about the proper usage of our code when they fail to use the program correctly. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>import argparse
+
+parser = argparse.ArgumentParser(description="Meow like a cat")
+parser.add_argument("-n", help="number of times to meow")
+args = parser.parse_args()
+
+for _ in range(int(args.n)):
+    print("meow")</div>
+        <p class="mt-4">Notice how the user is provided some documentation. Specifically, a help argument is provided. Now, if the user executes python meows.py --help or -h, the user will be presented with some clues about how to use this program.</p>
+        <p class="mt-4">We can further improve this program. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>import argparse
+
+parser = argparse.ArgumentParser(description="Meow like a cat")
+parser.add_argument("-n", default=1, help="number of times to meow", type=int)
+args = parser.parse_args()
+
+for _ in range(args.n):
+    print("meow")</div>
+        <p class="mt-4">Notice how not only is help documentation included, but you can provide a default value when no arguments are provided by the user. You can learn more in Python’s documentation of argparse.</p>
+    </section>
+
+    <!-- 8. Unpacking (verbatim) -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span>📦</span> Unpacking</h2>
+        <p class="mb-4">Would it not be nice to be able to split a single variable into two variables? In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>first, _ = input("What's your name? ").split(" ")
+print(f"hello, {first}")</div>
+        <p class="mt-4">Notice how this program tries to get a user’s first name by naively splitting on a single space.</p>
+        <p class="mt-4">It turns out there are other ways to unpack variables. You can write more powerful and elegant code by understanding how to unpack variables in seemingly more advanced ways. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def total(galleons, sickles, knuts):
+    return (galleons * 17 + sickles) * 29 + knuts
+
+
+print(total(100, 50, 25), "Knuts")</div>
+        <p class="mt-4">Notice how this returns the total value of Knuts.</p>
+        <p class="mt-4">What if we wanted to store our coins in a list? In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def total(galleons, sickles, knuts):
+    return (galleons * 17 + sickles) * 29 + knuts
+
+
+coins = [100, 50, 25]
+
+print(total(coins[0], coins[1], coins[2]), "Knuts")</div>
+        <p class="mt-4">Notice how a list called coins is created. We can pass each value in by indexing using 0, 1, and so on.</p>
+        <p class="mt-4">This is getting quite verbose. Wouldn’t it be nice if we could simply pass the list of coins to our function? To enable the possibility of passing the entire list, we can use unpacking. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def total(galleons, sickles, knuts):
+    return (galleons * 17 + sickles) * 29 + knuts
+
+
+coins = [100, 50, 25]
+
+print(total(*coins), "Knuts")</div>
+        <p class="mt-4">Notice how a <code>*</code> unpacks the sequence of the list of coins and passes in each of its individual elements to total.</p>
+        <p class="mt-4">Suppose that we could pass in the names of the currency in any order? In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def total(galleons, sickles, knuts):
+    return (galleons * 17 + sickles) * 29 + knuts
+
+
+print(total(galleons=100, sickles=50, knuts=25), "Knuts")</div>
+        <p class="mt-4">Notice how this still calculates correctly.</p>
+        <p class="mt-4">When you start talking about “names” and “values,” dictionaries might start coming to mind! You can implement this as a dictionary. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def total(galleons, sickles, knuts):
+    return (galleons * 17 + sickles) * 29 + knuts
+
+
+coins = {"galleons": 100, "sickles": 50, "knuts": 25}
+
+print(total(coins["galleons"], coins["sickles"], coins["knuts"]), "Knuts")</div>
+        <p class="mt-4">Notice how a dictionary called coins is provided. We can index into it using keys, such as “galleons” or “sickles”.</p>
+        <p class="mt-4">Since the total function expects three arguments, we cannot pass in a dictionary. We can use unpacking to help with this. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def total(galleons, sickles, knuts):
+    return (galleons * 17 + sickles) * 29 + knuts
+
+
+coins = {"galleons": 100, "sickles": 50, "knuts": 25}
+
+print(total(**coins), "Knuts")</div>
+        <p class="mt-4">Notice how <code>**</code> allows you to unpack a dictionary. When unpacking a dictionary, it provides both the keys and values.</p>
+    </section>
+
+    <!-- 9. args and kwargs (verbatim) -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span>🔑</span> args and kwargs</h2>
+        <p class="mb-4">Recall the print documentation we looked at earlier in this course:</p>
+        <div class="code-box">print(*objects, sep=' ', end='\n', file=sys.stdout, flush=False)</div>
+        <p class="mt-4"><code>args</code> are positional arguments, such as those we provide to print like <code>print("Hello", "World")</code>. <code>kwargs</code> are named arguments, or “keyword arguments”, such as those we provide to print like <code>print(end="")</code>.</p>
+        <p class="mt-4">As we see in the prototype for the print function above, we can tell our function to expect a presently unknown number positional arguments. We can also tell it to expect a presently unknown number of keyword arguments. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def f(*args, **kwargs):
+    print("Positional:", args)
+
+
+f(100, 50, 25)</div>
+        <p class="mt-4">Notice how executing this code will be printed as positional arguments.</p>
+        <p class="mt-4">We can even pass in named arguments. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def f(*args, **kwargs):
+    print("Named:", kwargs)
+
+
+f(galleons=100, sickles=50, knuts=25)</div>
+        <p class="mt-4">Notice how the named values are provided in the form of a dictionary.</p>
+        <p class="mt-4">Thinking about the print function above, you can see how *objects takes any number of positional arguments. You can learn more in Python’s documentation of print.</p>
+    </section>
+
+    <!-- 10. map (verbatim) -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span>🗺️</span> map</h2>
+        <p class="mb-4">Early on, we began with procedural programming. We later revealed Python is an object oriented programming language. We saw hints of functional programming, where functions have side effects without a return value. We can illustrate this in the text editor window, type code yell.py and code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def main():
+    yell("This is CS50")
+
+
+def yell(word):
+    print(word.upper())
+
+
+if __name__ == "__main__":
+    main()</div>
+        <p class="mt-4">Notice how the yell function is simply yelled.</p>
+        <p class="mt-4">Wouldn’t it be nice to yell a list of unlimited words? Modify your code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def main():
+    yell(["This", "is", "CS50"])
+
+
+def yell(words):
+    uppercased = []
+    for word in words:
+        uppercased.append(word.upper())
+    print(*uppercased)
+
+
+if __name__ == "__main__":
+    main()</div>
+        <p class="mt-4">Notice we accumulate the uppercase words, iterating over each of the words and “uppercasing” them. The uppercase list is printed utilizing the * to unpack it.</p>
+        <p class="mt-4">Removing the brackets, we can pass the words in as arguments. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def main():
+    yell("This", "is", "CS50")
+
+
+def yell(*words):
+    uppercased = []
+    for word in words:
+        uppercased.append(word.upper())
+    print(*uppercased)
+
+
+if __name__ == "__main__":
+    main()</div>
+        <p class="mt-4">Notice how *words allows for many arguments to be taken by the function.</p>
+        <p class="mt-4">map allows you to map a function to a sequence of values. In practice, we can code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def main():
+    yell("This", "is", "CS50")
+
+
+def yell(*words):
+    uppercased = map(str.upper, words)
+    print(*uppercased)
+
+
+if __name__ == "__main__":
+    main()</div>
+        <p class="mt-4">Notice how map takes two arguments. First, it takes a function we want applied to every element of a list. Second, it takes that list itself, to which we’ll apply the aforementioned function. Hence, all words in words will be handed to the str.upper function and returned to uppercased. You can learn more in Python’s documentation of map.</p>
+    </section>
+
+    <!-- 11. List Comprehensions (verbatim) -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span>🧾</span> List Comprehensions</h2>
+        <p class="mb-4">List comprehensions allow you to create a list on the fly in one elegant one-liner. We can implement this in our code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def main():
+    yell("This", "is", "CS50")
+
+
+def yell(*words):
+    uppercased = [arg.upper() for arg in words]
+    print(*uppercased)
+
+
+if __name__ == "__main__":
+    main()</div>
+        <p class="mt-4">Notice how instead of using map, we write a Python expression within square brackets. For each argument, .upper is applied to it.</p>
+        <p class="mt-4">Taking this concept further, let’s pivot toward another program. In the text editor window, type code gryffindors.py and code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>students = [
+    {"name": "Hermione", "house": "Gryffindor"},
+    {"name": "Harry", "house": "Gryffindor"},
+    {"name": "Ron", "house": "Gryffindor"},
+    {"name": "Draco", "house": "Slytherin"},
+]
+
+gryffindors = []
+for student in students:
+    if student["house"] == "Gryffindor":
+        gryffindors.append(student["name"])
+
+for gryffindor in sorted(gryffindors):
+    print(gryffindor)</div>
+        <p class="mt-4">Notice we have a conditional while we’re creating our list. If the student’s house is Gryffindor, we append the student to the list of names. Finally, we print all the names.</p>
+        <p class="mt-4">More elegantly, we can simplify this code with a list comprehension as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>students = [
+    {"name": "Hermione", "house": "Gryffindor"},
+    {"name": "Harry", "house": "Gryffindor"},
+    {"name": "Ron", "house": "Gryffindor"},
+    {"name": "Draco", "house": "Slytherin"},
+]
+
+gryffindors = [
+    student["name"] for student in students if student["house"] == "Gryffindor"
+]
+
+for gryffindor in sorted(gryffindors):
+    print(gryffindor)</div>
+        <p class="mt-4">Notice how the list comprehension is on a single line!</p>
+        <p class="mt-4">We can even simplify further as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>students = ["Hermione", "Harry", "Ron"]
+
+gryffindors = {student: "Gryffindor" for student in students}
+
+print(gryffindors)</div>
+        <p class="mt-4">Notice how the dictionary will be constructed with key-value pairs.</p>
+    </section>
+
+    <!-- 12. filter (verbatim) -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span>🔍</span> filter</h2>
+        <p class="mb-4">Using Python’s filter function allows us to return a subset of a sequence for which a certain condition is true. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>students = [
+    {"name": "Hermione", "house": "Gryffindor"},
+    {"name": "Harry", "house": "Gryffindor"},
+    {"name": "Ron", "house": "Gryffindor"},
+    {"name": "Draco", "house": "Slytherin"},
+]
+
+
+def is_gryffindor(s):
+    return s["house"] == "Gryffindor"
+
+
+gryffindors = filter(is_gryffindor, students)
+
+for gryffindor in sorted(gryffindors, key=lambda s: s["name"]):
+    print(gryffindor["name"])</div>
+        <p class="mt-4">Notice how a function called is_gryffindor is created. This is our filtering function that will take a student s, and return True or False depending on whether the student’s house is Gryffindor. You can see the new filter function takes two arguments. First, it takes the function that will be applied to each element in a sequence—in this case, is_gryffindor. Second, it takes the sequence to which it will apply the filtering function—in this case, students. In gryffindors, we should see only those students who are in Gryffindor.</p>
+        <p class="mt-4">filter can also use lambda functions as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>students = [
+    {"name": "Hermione", "house": "Gryffindor"},
+    {"name": "Harry", "house": "Gryffindor"},
+    {"name": "Ron", "house": "Gryffindor"},
+    {"name": "Draco", "house": "Slytherin"},
+]
+
+
+gryffindors = filter(lambda s: s["house"] == "Gryffindor", students)
+
+for gryffindor in sorted(gryffindors, key=lambda s: s["name"]):
+    print(gryffindor["name"])</div>
+        <p class="mt-4">Notice how the same list of students is provided. You can learn more in Python’s documentation of filter.</p>
+    </section>
+
+    <!-- 13. Dictionary Comprehensions (verbatim) -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span>📖</span> Dictionary Comprehensions</h2>
+        <p class="mb-4">We can apply the same idea behind list comprehensions to dictionaries. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>students = ["Hermione", "Harry", "Ron"]
+
+gryffindors = []
+
+for student in students:
+    gryffindors.append({"name": student, "house": "Gryffindor"})
+
+print(gryffindors)</div>
+        <p class="mt-4">Notice how this code doesn’t (yet!) use any comprehensions. Instead, it follows the same paradigms we have seen before.</p>
+        <p class="mt-4">We can now apply dictionary comprehensions by modifying our code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>students = ["Hermione", "Harry", "Ron"]
+
+gryffindors = [{"name": student, "house": "Gryffindor"} for student in students]
+
+print(gryffindors)</div>
+        <p class="mt-4">Notice how all the prior code is simplified into a single line where the structure of the dictionary is provided for each student in students.</p>
+        <p class="mt-4">We can even simplify further as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>students = ["Hermione", "Harry", "Ron"]
+
+gryffindors = {student: "Gryffindor" for student in students}
+
+print(gryffindors)</div>
+        <p class="mt-4">Notice how the dictionary will be constructed with key-value pairs.</p>
+    </section>
+
+    <!-- 14. enumerate (verbatim) -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span>🔢</span> enumerate</h2>
+        <p class="mb-4">We may wish to provide some ranking of each student. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>students = ["Hermione", "Harry", "Ron"]
+
+for i in range(len(students)):
+    print(i + 1, students[i])</div>
+        <p class="mt-4">Notice how each student is enumerated when running this code.</p>
+        <p class="mt-4">Utilizing enumeration, we can do the same:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>students = ["Hermione", "Harry", "Ron"]
+
+for i, student in enumerate(students):
+    print(i + 1, student)</div>
+        <p class="mt-4">Notice how enumerate presents the index and the value of each student. You can learn more in Python’s documentation of enumerate.</p>
+    </section>
+
+    <!-- 15. Generators and Iterators (verbatim) -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span>⚡</span> Generators and Iterators</h2>
+        <p class="mb-4">In Python, there is a way to protect against your system running out of resources the problems they are addressing become too large. In the United States, it’s customary to “count sheep” in one’s mind when one is having a hard time falling asleep. In the text editor window, type code sleep.py and code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>n = int(input("What's n? "))
+for i in range(n):
+    print("🐑" * i)</div>
+        <p class="mt-4">Notice how this program will count the number of sheep you ask of it.</p>
+        <p class="mt-4">We can make our program more sophisticated by adding a main function by coding as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def main():
+    n = int(input("What's n? "))
+    for i in range(n):
+        print("🐑" * i)
+
+
+if __name__ == "__main__":
+    main()</div>
+        <p class="mt-4">Notice how a main function is provided.</p>
+        <p class="mt-4">We have been getting into the habit of abstracting away parts of our code. We can call a sheep function by modifying our code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def main():
+    n = int(input("What's n? "))
+    for i in sheep(n):
+        print(i)
+
+
+def sheep(n):
+    flock = []
+    for i in range(n):
+        flock.append("🐑" * i)
+    return flock
+
+
+if __name__ == "__main__":
+    main()</div>
+        <p class="mt-4">Notice how the main function does the iteration.</p>
+        <p class="mt-4">Executing our code, you might try different numbers of sheep such as 10, 1000, and 10000. What if you asked for 1000000 sheep, your program might completely hang or crash. Because you have attempted to generate a massive list of sheep, your computer may be struggling to complete the computation. The yield generator can solve this problem by returning a small bit of the results at a time. In the text editor window, code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>def main():
+    n = int(input("What's n? "))
+    for s in sheep(n):
+        print(s)
+
+
+def sheep(n):
+    for i in range(n):
+        yield "🐑" * i
+
+
+if __name__ == "__main__":
+    main()</div>
+        <p class="mt-4">Notice how yield provides only one value at a time while the for loop keeps working. You can learn more in Python’s documentation of generators. You can learn more in Python’s documentation of iterators.</p>
+    </section>
+
+    <!-- 16. Congratulations! (verbatim) -->
+    <section class="reveal mb-12 p-6 bg-gradient-to-r from-teal-50 to-blue-50 dark:from-teal-900/20 dark:to-blue-900/20 rounded-xl">
+        <h2 class="text-2xl font-bold mb-3">Congratulations!</h2>
+        <p>As you exit from this course, you have more of a mental model and toolbox to address programming-related problems.</p>
+        <ul class="list-disc ml-6 space-y-1 mt-2">
+            <li>First, you learned about functions and variables.</li>
+            <li>Second, you learned about conditionals.</li>
+            <li>Third, you learned about loops.</li>
+            <li>Fourth, you learned about exceptions.</li>
+            <li>Fifth, you learned about libraries.</li>
+            <li>Sixth, you learned about unit tests.</li>
+            <li>Seventh, you learned about file I/O.</li>
+            <li>Eighth, you learned about regular expressions.</li>
+            <li>Most recently, you learned about object-oriented programming.</li>
+            <li>Today, you learned about many other tools you can use.</li>
+        </ul>
+        <p class="mt-4">This was CS50!</p>
+    </section>
+
+    <!-- 17. Final Program (verbatim) -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span>🎉</span> Creating a Final Program Together</h2>
+        <p class="mb-4">Type code say.py in your terminal window and code as follows:</p>
+        <div class="code-box"><button class="copy-btn" onclick="copyCode(this)">Copy</button>import cowsay
+import pyttsx3
+
+engine = pyttsx3.init()
+this = input("What's this? ")
+cowsay.cow(this)
+engine.say(this)
+engine.runAndWait()</div>
+        <p class="mt-4">Notice how running this program provides you with a spirited send-off.</p>
+        <p class="mt-4">Our great hope is that you will use what you learned in this course to address real problems in the world, making our globe a better place. This was CS50!</p>
+    </section>
+
+    <!-- 18. Live Playground -->
+    <section class="reveal mb-12">
+        <h2 class="text-2xl font-bold mb-3 flex items-center gap-2"><span>🕹️</span> Live Playground – Try It All</h2>
+        <textarea id="playground" class="code-box w-full h-48"># Try: list comp, generator, unpacking, type hints, etc.
+def sheep(n: int):
+    """A lazy generator of sheep."""
+    for i in range(n):
+        yield "🐑" * (i + 1)
+
+for s in sheep(5):
+    print(s)</textarea>
+        <div class="flex items-center gap-3 mt-3">
+            <button onclick="runCode()" class="px-5 py-2 rounded-lg bg-teal-600 text-white hover:bg-teal-700 transition">▶ Run</button>
+            <button onclick="resetCode()" class="px-5 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">Reset</button>
+        </div>
+        <div id="playground-out" class="output-box mt-3">Output will appear here…</div>
+    </section>
+</main>
+
+<footer class="bg-gray-900 text-white py-8 mt-12">
+    <div class="max-w-4xl mx-auto px-4 text-center text-gray-400">© 2024 PythonLearn – built with ❤️ for every future Pythonista.</div>
+</footer>
+
+<script>
+/* dark mode */
+if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.setAttribute('data-theme','dark');
+}
+/* scroll reveal */
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            anime({ targets: entry.target, opacity: 1, translateY: 0, duration: 600, easing: 'easeOutQuad' });
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: .15 });
+reveals.forEach(el => observer.observe(el));
+
+/* copy code */
+function copyCode(btn) {
+    const box = btn.parentElement;
+    const code = box.textContent.trim();
+    navigator.clipboard.writeText(code);
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 1200);
+}
+
+/* Skulpt runner */
+function outf(text) { document.getElementById('playground-out').textContent += text; }
+function builtinRead(x) {
+    if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+        throw new Error("File not found: " + x);
+    return Sk.builtinFiles["files"][x];
+}
+function runCode() {
+    const prog = document.getElementById('playground').value;
+    document.getElementById('playground-out').textContent = '';
+    Sk.pre = "playground-out";
+    Sk.configure({ output: outf, read: builtinRead, __future__: Sk.python3 });
+    const myPromise = Sk.misceval.asyncToPromise(() => Sk.importMainWithBody("<stdin>", false, prog, true));
+    myPromise.then(() => {}, err => document.getElementById('playground-out').textContent = err.toString());
+}
+function resetCode() {
+    document.getElementById('playground').value = `def sheep(n: int):
+    """A lazy generator of sheep."""
+    for i in range(n):
+        yield "🐑" * (i + 1)
+
+for s in sheep(5):
+    print(s)`;
+    document.getElementById('playground-out').textContent = 'Output will appear here…';
+}
+
+/* highlight current lecture */
+document.querySelectorAll('.mini-nav a').forEach(a => { if (a.href.endsWith('lec9.html')) a.classList.add('bg-teal-700','text-white'); });
+</script>
+</body>
+</html>
