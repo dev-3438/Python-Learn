@@ -602,15 +602,20 @@ print('Happy coding! 🐍')"></textarea>
     <!-- Playgrund-specific JavaScript -->
     
 
-/* =========  REAL PYTHON 3.11 via Skulpt  <script>
-/* =================================================================
-   PYTHON PLAYGROUND  –  REAL Python 3.x via Skulpt
-   ================================================================= */
+<script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+
+<script>
+/* ==========================================================
+   PYTHON PLAYGROUND  –  fixed & self-contained
+   ========================================================== */
 class PythonPlayground {
     constructor() {
         this.editor      = null;
         this.currentFile = 'main.py';
-        this.files = { /* your original file dictionary */ 
+
+        // default file set
+        this.files = {
             'main.py': `# Welcome to Python Playground!
 print('Hello, Python World!')
 print('This is your interactive playground')
@@ -626,31 +631,36 @@ for i in range(5):
     print(f'Count: {i}')
 
 print('Happy coding! 🐍')`,
-            'examples.py': `# Examples and demonstrations
-import math
-import random
+            'examples.py': `import math, random
 squares = [x**2 for x in range(10)]
 print("Squares:", squares)`,
-            'utils.py': `# Utility functions
-def greet(name):
+            'utils.py': `def greet(name):
     return f"Hello, {name}!"
 print(greet("Python Learner"))`,
             'data.txt': `Name,Age,Score
 Alice,20,85
 Bob,22,78`
         };
-        this.examples = { /* your original examples dictionary */ };
+
+        // quick example snippets
+        this.examples = {
+            'hello-world': { title: 'Hello World', code: `print("Hello, world!")` },
+            'variables':   { title: 'Variables',   code: `a = 5\nb = 7\nprint(a + b)` },
+            'loops':       { title: 'For Loop',    code: `for i in range(3):\n    print(i)` },
+            'functions':   { title: 'Function',    code: `def add(x,y):\n    return x+y\nprint(add(3,4))` },
+            'lists':       { title: 'Lists',       code: `nums = [1,2,3]\nnums.append(4)\nprint(nums)` },
+            'calculator':  { title: 'Calculator',  code: `expr = input("Enter math: ")\nprint(eval(expr))` }
+        };
+
         this.init();
     }
 
-    /* ---------------------------------------------------------- */
-    /*  1.  INITIALISATION                                        */
-    /* ---------------------------------------------------------- */
+    /* -------------------------------------------------- */
     init() {
         this.setupEditor();
         this.setupEventListeners();
         this.loadFile('main.py');
-        this.loadSavedCode();        // restore last session
+        this.loadSavedCode();          // restore last session
     }
 
     setupEditor() {
@@ -668,46 +678,48 @@ Bob,22,78`
             gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
         });
 
-        // cursor position indicator
+        // cursor position
         this.editor.on('cursorActivity', () => {
             const c = this.editor.getCursor();
             document.getElementById('cursor-position').textContent =
                 `Line ${c.line + 1}, Col ${c.ch + 1}`;
         });
 
-        // auto-save on edit
+        // auto-save
         this.editor.on('change', () => {
             this.files[this.currentFile] = this.editor.getValue();
         });
     }
 
     setupEventListeners() {
-        // File explorer
+        // file explorer
         document.querySelectorAll('.file-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const fname = item.dataset.file;
-                this.loadFile(fname);
+            item.addEventListener('click', e => {
+                this.loadFile(item.dataset.file);
                 document.querySelectorAll('.file-item').forEach(f => f.classList.remove('active'));
                 item.classList.add('active');
             });
         });
 
-        // Example loader
+        // example loader
         document.querySelectorAll('.example-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const ex = item.dataset.example;
-                this.loadExample(ex);
+            item.addEventListener('click', e => {
+                const ex = this.examples[item.dataset.example];
+                if (ex) {
+                    this.editor.setValue(ex.code);
+                    this.addOutput('info', `Loaded example: ${ex.title}`);
+                }
             });
         });
 
-        // Toolbar
+        // toolbar
         document.getElementById('run-code').addEventListener('click', () => this.runCode());
         document.getElementById('clear-output').addEventListener('click', () => this.clearOutput());
         document.getElementById('save-code').addEventListener('click', () => this.saveCode());
         document.getElementById('share-code').addEventListener('click', () => this.shareCode());
         document.getElementById('clear-code').addEventListener('click', () => this.clearCode());
 
-        // Keyboard shortcuts
+        // keyboard shortcuts
         document.addEventListener('keydown', e => {
             if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
                 e.preventDefault(); this.runCode();
@@ -718,9 +730,7 @@ Bob,22,78`
         });
     }
 
-    /* ---------------------------------------------------------- */
-    /*  2.  FILE / EXAMPLE HANDLING (unchanged)                  */
-    /* ---------------------------------------------------------- */
+    /* -------------------------------------------------- */
     loadFile(filename) {
         this.currentFile = filename;
         const content = this.files[filename] || `# File: ${filename}\nprint("Hello from ${filename}!")`;
@@ -728,23 +738,27 @@ Bob,22,78`
         this.updateTab(filename);
         this.updateStatus(`Loaded ${filename}`);
     }
-    loadExample(id) {
-        const ex = this.examples[id];
-        if (ex) {
-            this.editor.setValue(ex.code);
-            this.updateStatus(`Example: ${ex.title}`);
-            this.addOutput('info', `Loaded example: ${ex.title}`);
+    updateTab(filename) {
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(t => t.classList.remove('active'));
+        let tab = Array.from(tabs).find(t => t.dataset.tab === filename);
+        if (!tab) {
+            tab = document.createElement('div');
+            tab.className = 'tab active';
+            tab.dataset.tab = filename;
+            tab.innerHTML = `<span>${filename}</span><span class="tab-close">×</span>`;
+            document.querySelector('.tab-container').appendChild(tab);
         }
+        tab.classList.add('active');
     }
-    updateTab(filename) { /* your original tab-switching logic */ }
     updateStatus(msg, loading = false) {
         const status = document.getElementById('execution-status');
         status.innerHTML = loading ? `<div class="loading-spinner"></div> ${msg}` : msg;
     }
 
-    /* ---------------------------------------------------------- */
-    /*  3.  REAL PYTHON EXECUTION  (Skulpt)                       */
-    /* ---------------------------------------------------------- */
+    /* -------------------------------------------------- */
+    /*  REAL PYTHON 3.x via Skulpt                        */
+    /* -------------------------------------------------- */
     runCode() {
         const code = this.editor.getValue().trim();
         if (!code) { this.addOutput('error', 'No code to execute!'); return; }
@@ -764,7 +778,7 @@ Bob,22,78`
             },
             __future__: Sk.python3,
             execLimit: 15000,   // 15 s
-            yieldLimit: 300,    // yield every 300 statements
+            yieldLimit: 300,
         });
 
         const promise = Sk.misceval.asyncToPromise(() =>
@@ -783,9 +797,7 @@ Bob,22,78`
         );
     }
 
-    /* ---------------------------------------------------------- */
-    /*  4.  OUTPUT & HELPERS                                      */
-    /* ---------------------------------------------------------- */
+    /* -------------------------------------------------- */
     addOutput(type, message) {
         const panel = document.getElementById('output-panel');
         const line = document.createElement('div');
@@ -824,15 +836,12 @@ Bob,22,78`
     }
 }
 
-/* =================================================================
+/* ==========================================================
    INITIALISE ON PAGE LOAD
-   ================================================================= */
+   ========================================================== */
 document.addEventListener('DOMContentLoaded', () => {
     window.playground = new PythonPlayground();
 });
-
-
-
-    </script>
+</script>
 </body>
 </html>
