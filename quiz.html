@@ -652,501 +652,389 @@
     <script src="main.js"></script>
     
     <!-- Quiz-specific JavaScript -->
-    <script>
-        class PythonQuiz {
-            constructor() {
-                this.currentTopic = null;
-                this.questions = [];
-                this.currentQuestionIndex = 0;
-                this.score = 0;
-                this.answers = [];
-                this.timeRemaining = 0;
-                this.timer = null;
-                this.startTime = null;
-                
-                this.quizData = {
-                    'basics': {
-                        title: 'Python Basics Quiz',
-                        description: 'Test your fundamental Python knowledge',
-                        timeLimit: 600, // 10 minutes
-                        questions: [
-                            {
-                                question: "Which of the following is the correct way to create a variable in Python?",
-                                options: ["var x = 5", "x = 5", "int x = 5", "create x = 5"],
-                                correct: 1,
-                                explanation: "In Python, you create variables by simply assigning a value with the = operator. No special keywords like 'var' or 'int' are needed."
-                            },
-                            {
-                                question: "What will be the output of print(type(42))?",
-                                options: ["<class 'int'>", "<class 'float'>", "<class 'number'>", "Error"],
-                                correct: 0,
-                                explanation: "42 is an integer literal in Python, so type(42) returns <class 'int'>."
-                            },
-                            {
-                                question: "Which of these is a valid string in Python?",
-                                options: ["'Hello'", '"World"', '"""Python"""", "All of the above"],
-                                correct: 3,
-                                explanation: "Python supports single quotes, double quotes, and triple quotes for strings. All options are valid ways to create strings."
-                            },
-                            {
-                                question: "What is the correct way to create a list in Python?",
-                                options: ["list = []", "list = ()", "list = {}", "list = ||"],
-                                correct: 0,
-                                explanation: "Lists in Python are created using square brackets []. Parentheses () create tuples, curly braces {} create dictionaries."
-                            },
-                            {
-                                question: "Which function is used to get user input in Python 3?",
-                                options: ["get()", "input()", "read()", "scan()"],
-                                correct: 1,
-                                explanation: "The input() function is used to get user input in Python 3. It always returns a string."
-                            }
-                        ]
+   
+    <!-- =========  FIXED QUIZ ENGINE  ========= -->
+<script>
+/* ===========================================================
+   PYTHON QUIZ – BUG-FREE, FULLY STAND-ALONE
+   =========================================================== */
+class PythonQuiz {
+    constructor() {
+        this.currentTopic   = null;
+        this.questions      = [];
+        this.currentIndex   = 0;
+        this.score          = 0;
+        this.answers        = [];
+        this.timeRemaining  = 0;
+        this.timer          = null;
+        this.startTime      = null;
+
+        /* --------------  QUIZ BANK  ---------------- */
+        this.quizData = {
+            basics: {
+                title: 'Python Basics Quiz',
+                description: 'Test your fundamental Python knowledge',
+                timeLimit: 600, // 10 min
+                questions: [
+                    {
+                        question: "Which of the following is the correct way to create a variable in Python?",
+                        options: ["var x = 5", "x = 5", "int x = 5", "create x = 5"],
+                        correct: 1,
+                        explanation: "In Python you just assign:  x = 5 .  No declarative keyword is needed."
                     },
-                    'operators': {
-                        title: 'Python Operators Quiz',
-                        description: 'Test your knowledge of Python operators',
-                        timeLimit: 480, // 8 minutes
-                        questions: [
-                            {
-                                question: "What is the result of 10 // 3?",
-                                options: ["3.33", "3", "4", "3.0"],
-                                correct: 1,
-                                explanation: "The // operator performs floor division, which returns the largest integer less than or equal to the division result."
-                            },
-                            {
-                                question: "Which operator is used for exponentiation in Python?",
-                                options: ["^", "**", "^^", "exp"],
-                                correct: 1,
-                                explanation: "The ** operator is used for exponentiation in Python. For example, 2**3 equals 8."
-                            },
-                            {
-                                question: "What is the result of 'Hello' + 'World'?",
-                                options: ["Hello World", "HelloWorld", "Error", "Hello+World"],
-                                correct: 1,
-                                explanation: "The + operator concatenates strings in Python, so 'Hello' + 'World' results in 'HelloWorld'."
-                            },
-                            {
-                                question: "Which operator checks if two variables point to the same object?",
-                                options: ["==", "=", "is", "equals"],
-                                correct: 2,
-                                explanation: "The 'is' operator checks if two variables point to the same object in memory, while '==' checks for value equality."
-                            }
-                        ]
+                    {
+                        question: "What will print(type(42)) output?",
+                        options: ["<class 'int'>", "<class 'float'>", "<class 'number'>", "Error"],
+                        correct: 0,
+                        explanation: "42 is an integer literal ⇒ <class 'int'>."
                     },
-                    'control-flow': {
-                        title: 'Control Flow Quiz',
-                        description: 'Test your understanding of loops and conditionals',
-                        timeLimit: 720, // 12 minutes
-                        questions: [
-                            {
-                                question: "What will be the output of:\nfor i in range(3):\n    print(i)",
-                                options: ["0 1 2", "1 2 3", "0 1 2 3", "Error"],
-                                correct: 0,
-                                explanation: "range(3) generates numbers 0, 1, 2. The loop prints each number on a new line."
-                            },
-                            {
-                                question: "Which statement is used to exit a loop prematurely?",
-                                options: ["exit", "break", "stop", "quit"],
-                                correct: 1,
-                                explanation: "The 'break' statement is used to exit a loop prematurely and continue with the next statement after the loop."
-                            },
-                            {
-                                question: "What is the correct syntax for an if-elif-else statement?",
-                                options: [
-                                    "if condition: ... else if condition: ... else: ...",
-                                    "if condition: ... elif condition: ... else: ...",
-                                    "if condition: ... elseif condition: ... else: ...",
-                                    "if condition: ... else-if condition: ... else: ..."
-                                ],
-                                correct: 1,
-                                explanation: "Python uses 'elif' (not else if or elseif) for else-if conditions in if statements."
-                            }
-                        ]
+                    {
+                        question: "Which of these is **not** a valid Python string delimiter?",
+                        options: ["'hi'", '"hi"', "`hi`", '"""hi"""'],
+                        correct: 2,
+                        explanation: "Back-quotes (`) are **not** string delimiters in Python."
                     }
-                };
-                
-                this.init();
-            }
-            
-            init() {
-                this.setupEventListeners();
-                this.loadPerformanceData();
-            }
-            
-            setupEventListeners() {
-                // Topic selection
-                const topicCards = document.querySelectorAll('.topic-card');
-                topicCards.forEach(card => {
-                    card.addEventListener('click', () => {
-                        const topic = card.getAttribute('data-topic');
-                        this.selectTopic(topic);
-                    });
-                });
-                
-                // Quiz navigation
-                document.getElementById('next-button').addEventListener('click', () => this.nextQuestion());
-                document.getElementById('prev-button').addEventListener('click', () => this.prevQuestion());
-                document.getElementById('skip-button').addEventListener('click', () => this.skipQuestion());
-                
-                // Results navigation
-                document.getElementById('retake-quiz').addEventListener('click', () => this.retakeQuiz());
-                document.getElementById('review-answers').addEventListener('click', () => this.reviewAnswers());
-                document.getElementById('try-another-topic').addEventListener('click', () => this.tryAnotherTopic());
-            }
-            
-            selectTopic(topic) {
-                this.currentTopic = topic;
-                const quizData = this.quizData[topic];
-                
-                if (!quizData) {
-                    alert('Quiz not available yet. Please try another topic!');
-                    return;
-                }
-                
-                // Update quiz title and description
-                document.getElementById('quiz-title').textContent = quizData.title;
-                document.getElementById('quiz-description').textContent = quizData.description;
-                
-                // Initialize quiz
-                this.questions = quizData.questions;
-                this.currentQuestionIndex = 0;
-                this.score = 0;
-                this.answers = [];
-                this.timeRemaining = quizData.timeLimit;
-                this.startTime = Date.now();
-                
-                // Show quiz interface
-                document.getElementById('topic-selection').classList.add('hidden');
-                document.getElementById('quiz-interface').classList.remove('hidden');
-                document.getElementById('quiz-results').classList.add('hidden');
-                
-                // Start timer
-                this.startTimer();
-                
-                // Load first question
-                this.loadQuestion();
-            }
-            
-            startTimer() {
-                this.timer = setInterval(() => {
-                    this.timeRemaining--;
-                    this.updateTimerDisplay();
-                    
-                    if (this.timeRemaining <= 0) {
-                        this.finishQuiz();
+                ]
+            },
+            operators: {
+                title: 'Python Operators Quiz',
+                description: 'Test your knowledge of Python operators',
+                timeLimit: 480, // 8 min
+                questions: [
+                    {
+                        question: "What is 10 // 3 ?",
+                        options: ["3.33", "3", "4", "3.0"],
+                        correct: 1,
+                        explanation: "// is floor-division ⇒ 3 ."
+                    },
+                    {
+                        question: "Which operator is exponentiation?",
+                        options: ["^", "**", "^^", "exp"],
+                        correct: 1,
+                        explanation: "** is exponentiation:  2**3 = 8 ."
                     }
-                }, 1000);
-            }
-            
-            updateTimerDisplay() {
-                const minutes = Math.floor(this.timeRemaining / 60);
-                const seconds = this.timeRemaining % 60;
-                const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-                
-                document.getElementById('quiz-timer').textContent = display;
-                
-                // Add warning class when time is low
-                const timerElement = document.getElementById('quiz-timer').parentElement;
-                if (this.timeRemaining <= 60) {
-                    timerElement.classList.add('warning');
-                } else {
-                    timerElement.classList.remove('warning');
-                }
-            }
-            
-            loadQuestion() {
-                const question = this.questions[this.currentQuestionIndex];
-                if (!question) return;
-                
-                // Update question counter
-                document.getElementById('current-question').textContent = this.currentQuestionIndex + 1;
-                document.getElementById('question-number').textContent = `Question ${this.currentQuestionIndex + 1} of ${this.questions.length}`;
-                
-                // Update progress
-                const progress = ((this.currentQuestionIndex + 1) / this.questions.length) * 100;
-                document.getElementById('quiz-progress').textContent = `${Math.round(progress)}%`;
-                document.getElementById('progress-fill').style.width = `${progress}%`;
-                
-                // Load question content
-                document.getElementById('question-text').textContent = question.question;
-                
-                // Load options
-                const optionsContainer = document.getElementById('options-container');
-                optionsContainer.innerHTML = '';
-                
-                question.options.forEach((option, index) => {
-                    const button = document.createElement('button');
-                    button.className = 'option-button';
-                    button.setAttribute('data-option', index);
-                    button.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
-                    button.addEventListener('click', () => this.selectAnswer(index));
-                    optionsContainer.appendChild(button);
-                });
-                
-                // Clear feedback
-                document.getElementById('feedback-container').innerHTML = '';
-                
-                // Update navigation buttons
-                document.getElementById('prev-button').disabled = this.currentQuestionIndex === 0;
-                document.getElementById('next-button').disabled = true;
-                document.getElementById('skip-button').disabled = false;
-            }
-            
-            selectAnswer(selectedIndex) {
-                const question = this.questions[this.currentQuestionIndex];
-                const isCorrect = selectedIndex === question.correct;
-                
-                // Store answer
-                this.answers[this.currentQuestionIndex] = {
-                    selected: selectedIndex,
-                    correct: isCorrect,
-                    question: question.question
-                };
-                
-                if (isCorrect) {
-                    this.score++;
-                    document.getElementById('quiz-score').textContent = this.score;
-                }
-                
-                // Update option buttons
-                const optionButtons = document.querySelectorAll('.option-button');
-                optionButtons.forEach((button, index) => {
-                    button.disabled = true;
-                    if (index === selectedIndex) {
-                        button.classList.add(isCorrect ? 'correct' : 'incorrect');
-                    } else if (index === question.correct) {
-                        button.classList.add('correct');
+                ]
+            },
+            'control-flow': {
+                title: 'Control-Flow Quiz',
+                description: 'Loops and conditionals',
+                timeLimit: 720, // 12 min
+                questions: [
+                    {
+                        question: "What does range(3) produce?",
+                        options: ["0 1 2", "1 2 3", "0 1 2 3", "Error"],
+                        correct: 0,
+                        explanation: "range(3) ⇒ 0,1,2  (stop value exclusive)."
+                    },
+                    {
+                        question: "Which keyword exits a loop prematurely?",
+                        options: ["exit", "break", "stop", "quit"],
+                        correct: 1,
+                        explanation: "break leaves the loop immediately."
                     }
-                });
-                
-                // Show feedback
-                this.showFeedback(isCorrect, question.explanation);
-                
-                // Enable next button
-                document.getElementById('next-button').disabled = false;
-                document.getElementById('skip-button').disabled = true;
-            }
-            
-            showFeedback(isCorrect, explanation) {
-                const feedbackContainer = document.getElementById('feedback-container');
-                const feedbackClass = isCorrect ? 'feedback-correct' : 'feedback-incorrect';
-                const feedbackIcon = isCorrect ? '✅' : '❌';
-                const feedbackText = isCorrect ? 'Correct!' : 'Incorrect';
-                
-                feedbackContainer.innerHTML = `
-                    <div class="feedback-panel ${feedbackClass}">
-                        <div class="flex items-center mb-2">
-                            <span class="text-2xl mr-2">${feedbackIcon}</span>
-                            <span class="font-bold">${feedbackText}</span>
-                        </div>
-                        <div class="feedback-panel feedback-explanation">
-                            <p><strong>Explanation:</strong> ${explanation}</p>
-                        </div>
-                    </div>
-                `;
-            }
-            
-            nextQuestion() {
-                if (this.currentQuestionIndex < this.questions.length - 1) {
-                    this.currentQuestionIndex++;
-                    this.loadQuestion();
-                } else {
-                    this.finishQuiz();
-                }
-            }
-            
-            prevQuestion() {
-                if (this.currentQuestionIndex > 0) {
-                    this.currentQuestionIndex--;
-                    this.loadQuestion();
-                }
-            }
-            
-            skipQuestion() {
-                // Record as skipped
-                this.answers[this.currentQuestionIndex] = {
-                    selected: -1,
-                    correct: false,
-                    question: this.questions[this.currentQuestionIndex].question,
-                    skipped: true
-                };
-                
-                this.nextQuestion();
-            }
-            
-            finishQuiz() {
-                // Stop timer
-                if (this.timer) {
-                    clearInterval(this.timer);
-                }
-                
-                const totalTime = Math.floor((Date.now() - this.startTime) / 1000);
-                const percentage = Math.round((this.score / this.questions.length) * 100);
-                
-                // Show results
-                this.showResults(percentage, totalTime);
-            }
-            
-            showResults(percentage, totalTime) {
-                // Hide quiz interface
-                document.getElementById('quiz-interface').classList.add('hidden');
-                document.getElementById('quiz-results').classList.remove('hidden');
-                
-                // Update score circle
-                const scoreCircle = document.getElementById('score-circle');
-                const degrees = (percentage / 100) * 360;
-                scoreCircle.style.background = `conic-gradient(#0d9488 ${degrees}deg, #e5e7eb ${degrees}deg)`;
-                
-                // Update results
-                document.getElementById('final-score').textContent = `${percentage}%`;
-                document.getElementById('correct-answers').textContent = this.score;
-                document.getElementById('incorrect-answers').textContent = this.questions.length - this.score;
-                
-                const minutes = Math.floor(totalTime / 60);
-                const seconds = totalTime % 60;
-                document.getElementById('total-time').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-                
-                // Update message
-                const message = this.getScoreMessage(percentage);
-                document.getElementById('score-message').textContent = message;
-                
-                // Save results
-                this.saveResults(percentage, totalTime);
-            }
-            
-            getScoreMessage(percentage) {
-                if (percentage >= 90) {
-                    return "Outstanding! You have mastered this topic. 🎉";
-                } else if (percentage >= 80) {
-                    return "Excellent work! You have a strong understanding. 👏";
-                } else if (percentage >= 70) {
-                    return "Good job! You're on the right track. 👍";
-                } else if (percentage >= 60) {
-                    return "Not bad! Keep practicing to improve. 💪";
-                } else {
-                    return "Keep learning! Practice makes perfect. 📚";
-                }
-            }
-            
-            saveResults(percentage, time) {
-                const results = {
-                    topic: this.currentTopic,
-                    score: percentage,
-                    correct: this.score,
-                    total: this.questions.length,
-                    time: time,
-                    date: new Date().toISOString()
-                };
-                
-                // Save to localStorage
-                const savedResults = JSON.parse(localStorage.getItem('quiz-results') || '[]');
-                savedResults.push(results);
-                localStorage.setItem('quiz-results', JSON.stringify(savedResults));
-            }
-            
-            retakeQuiz() {
-                this.selectTopic(this.currentTopic);
-            }
-            
-            reviewAnswers() {
-                alert('Answer review feature coming soon!');
-            }
-            
-            tryAnotherTopic() {
-                document.getElementById('quiz-results').classList.add('hidden');
-                document.getElementById('topic-selection').classList.remove('hidden');
-            }
-            
-            loadPerformanceData() {
-                const savedResults = JSON.parse(localStorage.getItem('quiz-results') || '[]');
-                
-                if (savedResults.length > 0) {
-                    this.createScoreChart(savedResults);
-                    this.createTopicChart(savedResults);
-                }
-            }
-            
-            createScoreChart(results) {
-                const chart = echarts.init(document.getElementById('score-chart'));
-                
-                const data = results.slice(-10).map((result, index) => ({
-                    name: `Quiz ${index + 1}`,
-                    value: result.score
-                }));
-                
-                const option = {
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    xAxis: {
-                        type: 'category',
-                        data: data.map(d => d.name)
-                    },
-                    yAxis: {
-                        type: 'value',
-                        min: 0,
-                        max: 100
-                    },
-                    series: [{
-                        data: data.map(d => d.value),
-                        type: 'line',
-                        smooth: true,
-                        itemStyle: {
-                            color: '#0d9488'
-                        },
-                        areaStyle: {
-                            color: 'rgba(13, 148, 136, 0.1)'
-                        }
-                    }]
-                };
-                
-                chart.setOption(option);
-            }
-            
-            createTopicChart(results) {
-                const chart = echarts.init(document.getElementById('topic-chart'));
-                
-                // Group results by topic
-                const topicData = {};
-                results.forEach(result => {
-                    if (!topicData[result.topic]) {
-                        topicData[result.topic] = [];
+                ]
+            },
+            functions: {
+                title: 'Functions Quiz',
+                description: 'Defining and calling functions',
+                timeLimit: 600,
+                questions: [
+                    {
+                        question: "How do you define a function in Python?",
+                        options: ["function foo():", "def foo():", "func foo():", "define foo():"],
+                        correct: 1,
+                        explanation: "Keyword is  def foo():  ."
                     }
-                    topicData[result.topic].push(result.score);
-                });
-                
-                // Calculate average scores
-                const data = Object.keys(topicData).map(topic => ({
-                    name: topic.charAt(0).toUpperCase() + topic.slice(1),
-                    value: topicData[topic].reduce((a, b) => a + b, 0) / topicData[topic].length
-                }));
-                
-                const option = {
-                    tooltip: {
-                        trigger: 'item'
-                    },
-                    series: [{
-                        type: 'pie',
-                        radius: '60%',
-                        data: data,
-                        emphasis: {
-                            itemStyle: {
-                                shadowBlur: 10,
-                                shadowOffsetX: 0,
-                                shadowColor: 'rgba(0, 0, 0, 0.5)'
-                            }
-                        }
-                    }]
-                };
-                
-                chart.setOption(option);
+                ]
+            },
+            'data-structures': {
+                title: 'Data-Structures Quiz',
+                description: 'Lists, dicts, tuples, sets',
+                timeLimit: 900, // 15 min
+                questions: [
+                    {
+                        question: "Which bracket type creates a list?",
+                        options: ["()", "{}", "[]", "<>"],
+                        correct: 2,
+                        explanation: "[] ⇒ list , {} ⇒ dict , () ⇒ tuple ."
+                    }
+                ]
+            },
+            mixed: {
+                title: 'Mixed Challenge',
+                description: 'Random questions from every topic',
+                timeLimit: 1200, // 20 min
+                questions: []
             }
-        }
-        
-        // Initialize quiz when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            window.pythonQuiz = new PythonQuiz();
+        };
+
+        /* ---------------  MIXED BUILDER  ----------------- */
+        const allQuestions = Object.values(this.quizData)
+                                   .flatMap(q => q.questions)
+                                   .filter(q => q); // skip empty mixed array
+        this.quizData.mixed.questions = allQuestions
+            .map(q => ({...q, question: q.question.replace('**', '')})) // remove markdown
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 25);
+
+        this.init();
+    }
+
+    /* -------------------------------------------------- */
+    init() {
+        this.setupEventListeners();
+        this.loadPerformanceData();
+    }
+
+    setupEventListeners() {
+        // topic cards
+        document.querySelectorAll('.topic-card').forEach(card =>
+            card.addEventListener('click', () => this.selectTopic(card.dataset.topic))
+        );
+
+        // nav
+        document.getElementById('next-button').addEventListener('click', () => this.nextQuestion());
+        document.getElementById('prev-button').addEventListener('click', () => this.prevQuestion());
+        document.getElementById('skip-button').addEventListener('click', () => this.skipQuestion());
+
+        // results
+        document.getElementById('retake-quiz').addEventListener('click', () => this.retakeQuiz());
+        document.getElementById('review-answers').addEventListener('click', () => this.reviewAnswers());
+        document.getElementById('try-another-topic').addEventListener('click', () => this.tryAnotherTopic());
+    }
+
+    /* -------------------------------------------------- */
+    selectTopic(topic) {
+        const data = this.quizData[topic];
+        if (!data) return;
+
+        this.currentTopic   = topic;
+        this.questions      = data.questions;
+        this.currentIndex   = 0;
+        this.score          = 0;
+        this.answers        = [];
+        this.timeRemaining  = data.timeLimit;
+        this.startTime      = Date.now();
+
+        // UI switch
+        document.getElementById('topic-selection').classList.add('hidden');
+        document.getElementById('quiz-interface').classList.remove('hidden');
+        document.getElementById('quiz-results').classList.add('hidden');
+
+        // header
+        document.getElementById('quiz-title').textContent       = data.title;
+        document.getElementById('quiz-description').textContent = data.description;
+
+        this.startTimer();
+        this.loadQuestion();
+    }
+
+    startTimer() {
+        this.timer = setInterval(() => {
+            this.timeRemaining--;
+            this.updateTimerDisplay();
+            if (this.timeRemaining <= 0) this.finishQuiz();
+        }, 1000);
+    }
+
+    updateTimerDisplay() {
+        const min = Math.floor(this.timeRemaining / 60);
+        const sec = this.timeRemaining % 60;
+        const display = `${min}:${sec.toString().padStart(2, '0')}`;
+        document.getElementById('quiz-timer').textContent = display;
+
+        const wrap = document.getElementById('quiz-timer').parentElement;
+        wrap.classList.toggle('warning', this.timeRemaining <= 60);
+    }
+
+    loadQuestion() {
+        const q = this.questions[this.currentIndex];
+        if (!q) return;
+
+        document.getElementById('current-question').textContent = this.currentIndex + 1;
+        document.getElementById('question-number').textContent =
+            `Question ${this.currentIndex + 1} of ${this.questions.length}`;
+
+        const progress = ((this.currentIndex + 1) / this.questions.length) * 100;
+        document.getElementById('quiz-progress').textContent       = `${Math.round(progress)}%`;
+        document.getElementById('progress-fill').style.width       = `${progress}%`;
+
+        document.getElementById('question-text').textContent = q.question;
+
+        const container = document.getElementById('options-container');
+        container.innerHTML = '';
+        q.options.forEach((opt, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-button';
+            btn.dataset.option = i;
+            btn.textContent = `${String.fromCharCode(65 + i)}. ${opt}`;
+            btn.addEventListener('click', () => this.selectAnswer(i));
+            container.appendChild(btn);
         });
-    </script>
+
+        document.getElementById('feedback-container').innerHTML = '';
+        document.getElementById('prev-button').disabled = this.currentIndex === 0;
+        document.getElementById('next-button').disabled = true;
+        document.getElementById('skip-button').disabled = false;
+    }
+
+    selectAnswer(idx) {
+        const q   = this.questions[this.currentIndex];
+        const ok  = idx === q.correct;
+
+        this.answers[this.currentIndex] = { selected: idx, correct: ok, question: q.question };
+        if (ok) {
+            this.score++;
+            document.getElementById('quiz-score').textContent = this.score;
+        }
+
+        // colour buttons
+        document.querySelectorAll('.option-button').forEach((b, i) => {
+            b.disabled = true;
+            if (i === idx) b.classList.add(ok ? 'correct' : 'incorrect');
+            if (i === q.correct) b.classList.add('correct');
+        });
+
+        this.showFeedback(ok, q.explanation);
+        document.getElementById('next-button').disabled = false;
+        document.getElementById('skip-button').disabled = true;
+    }
+
+    showFeedback(ok, explanation) {
+        const box = document.getElementById('feedback-container');
+        const cls = ok ? 'feedback-correct' : 'feedback-incorrect';
+        const icon= ok ? '✅' : '❌';
+        const txt = ok ? 'Correct!' : 'Incorrect';
+        box.innerHTML = `
+          <div class="feedback-panel ${cls}">
+            <div class="flex items-center mb-2"><span class="text-2xl mr-2">${icon}</span><span class="font-bold">${txt}</span></div>
+            <div class="feedback-panel feedback-explanation"><p><strong>Explanation:</strong> ${explanation}</p></div>
+          </div>`;
+    }
+
+    nextQuestion() {
+        if (this.currentIndex < this.questions.length - 1) {
+            this.currentIndex++;
+            this.loadQuestion();
+        } else {
+            this.finishQuiz();
+        }
+    }
+    prevQuestion() {
+        if (this.currentIndex > 0) {
+            this.currentIndex--;
+            this.loadQuestion();
+        }
+    }
+    skipQuestion() {
+        this.answers[this.currentIndex] = { selected: -1, correct: false, question: this.questions[this.currentIndex].question, skipped: true };
+        this.nextQuestion();
+    }
+
+    finishQuiz() {
+        if (this.timer) clearInterval(this.timer);
+        const totalTime = Math.floor((Date.now() - this.startTime) / 1000);
+        this.showResults(Math.round((this.score / this.questions.length) * 100), totalTime);
+    }
+
+    showResults(percentage, totalTime) {
+        document.getElementById('quiz-interface').classList.add('hidden');
+        document.getElementById('quiz-results').classList.remove('hidden');
+
+        const deg = (percentage / 100) * 360;
+        document.getElementById('score-circle').style.background =
+            `conic-gradient(#0d9488 ${deg}deg, #e5e7eb ${deg}deg)`;
+
+        document.getElementById('final-score').textContent       = `${percentage}%`;
+        document.getElementById('correct-answers').textContent   = this.score;
+        document.getElementById('incorrect-answers').textContent = this.questions.length - this.score;
+
+        const min = Math.floor(totalTime / 60);
+        const sec = totalTime % 60;
+        document.getElementById('total-time').textContent = `${min}:${sec.toString().padStart(2, '0')}`;
+        document.getElementById('score-message').textContent = this.getScoreMessage(percentage);
+
+        this.saveResults(percentage, totalTime);
+    }
+
+    getScoreMessage(pct) {
+        if (pct >= 90) return "Outstanding! You have mastered this topic. 🎉";
+        if (pct >= 80) return "Excellent work! You have a strong understanding. 👏";
+        if (pct >= 70) return "Good job! You're on the right track. 👍";
+        if (pct >= 60) return "Not bad! Keep practicing to improve. 💪";
+        return "Keep learning! Practice makes perfect. 📚";
+    }
+
+    saveResults(percentage, time) {
+        const res = {
+            topic: this.currentTopic,
+            score: percentage,
+            correct: this.score,
+            total: this.questions.length,
+            time, date: new Date().toISOString()
+        };
+        const saved = JSON.parse(localStorage.getItem('quiz-results') || '[]');
+        saved.push(res);
+        localStorage.setItem('quiz-results', JSON.stringify(saved));
+    }
+
+    retakeQuiz() { this.selectTopic(this.currentTopic); }
+    reviewAnswers() { alert('Answer-review sheet coming soon!'); }
+    tryAnotherTopic() {
+        document.getElementById('quiz-results').classList.add('hidden');
+        document.getElementById('topic-selection').classList.remove('hidden');
+    }
+
+    /* -------------------------------------------------- */
+    /*  CHARTS – only render when ECharts lib is ready   */
+    /* -------------------------------------------------- */
+    loadPerformanceData() {
+        if (typeof echarts === 'undefined') return;
+        const saved = JSON.parse(localStorage.getItem('quiz-results') || '[]');
+        if (saved.length) {
+            this.createScoreChart(saved);
+            this.createTopicChart(saved);
+        }
+    }
+    createScoreChart(data) {
+        const chart = echarts.init(document.getElementById('score-chart'));
+        const last = data.slice(-10);
+        chart.setOption({
+            tooltip: { trigger: 'axis' },
+            xAxis: { type: 'category', data: last.map((_, i) => `Quiz ${i + 1}`) },
+            yAxis: { type: 'value', min: 0, max: 100 },
+            series: [{
+                data: last.map(r => r.score),
+                type: 'line',
+                smooth: true,
+                itemStyle: { color: '#0d9488' },
+                areaStyle: { color: 'rgba(13,148,136,.1)' }
+            }]
+        });
+    }
+    createTopicChart(data) {
+        const chart = echarts.init(document.getElementById('topic-chart'));
+        const avg = {};
+        data.forEach(r => {
+            if (!avg[r.topic]) avg[r.topic] = [];
+            avg[r.topic].push(r.score);
+        });
+        const pieData = Object.keys(avg).map(k => ({
+            name: k.charAt(0).toUpperCase() + k.slice(1),
+            value: (avg[k].reduce((a, b) => a + b, 0) / avg[k].length).toFixed(1)
+        }));
+        chart.setOption({
+            tooltip: { trigger: 'item' },
+            series: [{ type: 'pie', radius: '60%', data: pieData }]
+        });
+    }
+}
+
+/* ------------------  BOOTSTRAP  ------------------ */
+document.addEventListener('DOMContentLoaded', () => {
+    window.pythonQuiz = new PythonQuiz();
+});
+</script>
+<!-- =========  END FIXED QUIZ ENGINE  ========= -->
 </body>
 </html>
