@@ -180,7 +180,90 @@ print(harry)</textarea>
         <div id="playground-out" class="output-box mt-3">Output will appear here…</div>
     </section>
 </main>
+<!-- =========  PSET8 QUESTIONS & HINTS – DOPE STYLING  ========= -->
+<section class="reveal mt-12">
 
+    <!-- neon-gradient title -->
+    <h2 class="text-4xl font-extrabold mb-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-rose-500 to-fuchsia-500 drop-shadow-[0_0_10px_rgba(236,72,153,0.5)] dark:drop-shadow-[0_0_15px_rgba(244,114,182,0.6)]">
+        🌸 PSET 8 – OOP, Dates, PDFs & Vibes
+    </h2>
+
+    <!-- glowing card grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- 1. Seasons of Love -->
+        <div class="group relative bg-gradient-to-br from-pink-50 to-rose-50 dark:from-gray-900 dark:to-pink-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/30 ring-1 ring-pink-200 dark:ring-pink-700 hover:ring-pink-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-pink-500/20">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-pink-500 to-rose-600 text-white font-bold shadow-lg drop-shadow-md">1</div>
+            <h3 class="text-xl font-bold mb-3 text-pink-700 dark:text-pink-300">Seasons of Love</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Birth date (YYYY-MM-DD) → age in minutes → print in words (no numerals, no “and”).</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-100 dark:bg-pink-800/30 text-pink-700 dark:text-pink-300 text-xs font-medium">
+                datetime + inflect
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: midnight to midnight → days×24×60 → inflect.engine().number_to_words(minutes) → strip “and”.</p>
+        </div>
+
+        <!-- 2. Cookie Jar -->
+        <div class="group relative bg-gradient-to-br from-amber-50 to-orange-50 dark:from-gray-900 dark:to-amber-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-amber-200 dark:ring-amber-700 hover:ring-amber-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-amber-500/20">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-amber-500 to-orange-600 text-white font-bold shadow-lg drop-shadow-md">2</div>
+            <h3 class="text-xl font-bold mb-3 text-amber-700 dark:text-amber-300">Cookie Jar</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Jar class: capacity, deposit, withdraw, 🍪 string; raise ValueError on bad ops.</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-800/30 text-amber-700 dark:text-amber-300 text-xs font-medium">
+                OOP + validation
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: __init__ capacity int ≥0, deposit/withdraw check overflow/underflow, __str__ returns "🍪"*size.</p>
+        </div>
+
+        <!-- 3. CS50 Shirtificate -->
+        <div class="group relative bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-gray-900 dark:to-emerald-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-emerald-200 dark:ring-emerald-700 hover:ring-emerald-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-500/20 md:col-span-2 lg:col-span-1">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 text-white font-bold shadow-lg drop-shadow-md">3</div>
+            <h3 class="text-xl font-bold mb-3 text-emerald-700 dark:text-emerald-300">CS50 Shirtificate</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">User name lo, fpdf2 se shirt image pe name centered daal ke shirtificate.pdf banao.</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-800/30 text-emerald-700 dark:text-emerald-300 text-xs font-medium">
+                fpdf2 + image + text
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: pdf.add_page(), pdf.image("shirt.png", x=0, y=0, w=pdf.w), pdf.set_font, pdf.cell(center=True) → output shirtificate.pdf.</p>
+        </div>
+    </div>
+
+    <!-- core themes banner -->
+    <div class="mt-10 p-5 bg-gradient-to-r from-pink-500/10 via-rose-500/10 to-fuchsia-500/10 dark:from-pink-500/20 dark:via-rose-500/20 dark:to-fuchsia-500/20 rounded-2xl border border-pink-300 dark:border-pink-700 text-center">
+        <p class="font-bold text-slate-800 dark:text-slate-200">🧠 Core Themes in PSET 8</p>
+        <p class="text-sm mt-2 text-slate-600 dark:text-slate-300">
+            OOP: classes, encapsulation, __init__, __str__ | Validation: constructor & method checks | Libraries: external PDF + word libs | Modularity: small testable functions
+        </p>
+    </div>
+
+    <!-- output expectations table -->
+    <div class="mt-6 overflow-x-auto">
+        <table class="w-full text-sm text-left text-slate-700 dark:text-slate-300 rounded-xl shadow-lg ring-1 ring-slate-200 dark:ring-slate-700">
+            <thead class="text-xs uppercase bg-gradient-to-r from-pink-100 to-rose-100 dark:from-pink-900/40 dark:to-rose-900/40">
+                <tr>
+                    <th scope="col" class="px-6 py-3 rounded-tl-lg">Problem</th>
+                    <th scope="col" class="px-6 py-3 rounded-tr-lg">Expected Output Format</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="bg-white/70 dark:bg-gray-800/50 border-b dark:border-slate-700">
+                    <td class="px-6 py-4 font-medium text-pink-700 dark:text-pink-300">Seasons of Love</td>
+                    <td class="px-6 py-4">Eight hundred twenty‑two thousand five hundred thirty‑six minutes</td>
+                </tr>
+                <tr class="bg-white/70 dark:bg-gray-800/50 border-b dark:border-slate-700">
+                    <td class="px-6 py-4 font-medium text-amber-700 dark:text-amber-300">Cookie Jar</td>
+                    <td class="px-6 py-4">🍪🍪🍪</td>
+                </tr>
+                <tr class="bg-white/70 dark:bg-gray-800/50">
+                    <td class="px-6 py-4 font-medium text-emerald-700 dark:text-emerald-300 rounded-bl-lg">Shirtificate</td>
+                    <td class="px-6 py-4 rounded-br-lg">A PDF with a stylised certificate</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- footer note -->
+    <p class="mt-4 text-xs text-center text-slate-500 dark:text-slate-400">
+        Exact string formatting matters — tests are strict. Happy coding! 🎀
+    </p>
+</section>
 <!-- =========  FOOTER  ========= -->
 <footer class="bg-gray-900 text-white py-8 mt-12">
     <div class="max-w-4xl mx-auto px-4 text-center text-gray-400">
