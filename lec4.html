@@ -207,7 +207,81 @@ print(random.choice(["heads", "tails"]))</textarea>
         <div id="playground-out" class="output-box mt-3">Output will appear here…</div>
     </section>
 </main>
+<!-- =========  PSET4 QUESTIONS & HINTS – DOPE STYLING  ========= -->
+<section class="reveal mt-12">
 
+    <!-- neon-gradient title -->
+    <h2 class="text-4xl font-extrabold mb-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 via-pink-500 to-rose-500 drop-shadow-[0_0_10px_rgba(236,72,153,0.5)] dark:drop-shadow-[0_0_15px_rgba(244,114,182,0.6)]">
+        🧠 PSET 4 – Libraries, Randomness, APIs
+    </h2>
+
+    <!-- glowing card grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- 1. Emojize -->
+        <div class="group relative bg-gradient-to-br from-fuchsia-50 to-pink-50 dark:from-gray-900 dark:to-fuchsia-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/30 ring-1 ring-fuchsia-200 dark:ring-fuchsia-700 hover:ring-fuchsia-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-fuchsia-500/20">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-fuchsia-500 to-pink-600 text-white font-bold shadow-lg drop-shadow-md">1</div>
+            <h3 class="text-xl font-bold mb-3 text-fuchsia-700 dark:text-fuchsia-300">Emojize</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Convert emoji aliases like :smile: → 😄 using an external library.</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fuchsia-100 dark:bg-fuchsia-800/30 text-fuchsia-700 dark:text-fuchsia-300 text-xs font-medium">
+                emoji lib + alias→emoji
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: Library laga ke kaam karo, khud emoji mat banao.</p>
+        </div>
+
+        <!-- 2. Letters -->
+        <div class="group relative bg-gradient-to-br from-rose-50 to-red-50 dark:from-gray-900 dark:to-rose-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-rose-200 dark:ring-rose-700 hover:ring-rose-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-rose-500/20">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-rose-500 to-red-600 text-white font-bold shadow-lg drop-shadow-md">2</div>
+            <h3 class="text-xl font-bold mb-3 text-rose-700 dark:text-rose-300">Frank, Ian & Glen’s Letters</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Randomly pick one name from a fixed list and print it.</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-100 dark:bg-rose-800/30 text-rose-700 dark:text-rose-300 text-xs font-medium">
+                list + random.choice
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: Naam list mein daalo, computer khud choose karega.</p>
+        </div>
+
+        <!-- 3. Guessing Game -->
+        <div class="group relative bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-gray-900 dark:to-indigo-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-indigo-200 dark:ring-indigo-700 hover:ring-indigo-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-indigo-500/20">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 text-white font-bold shadow-lg drop-shadow-md">3</div>
+            <h3 class="text-xl font-bold mb-3 text-indigo-700 dark:text-indigo-300">Guessing Game</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Random number banao, user guess kare, “Too large/small” hints do.</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-800/30 text-indigo-700 dark:text-indigo-300 text-xs font-medium">
+                random + loop + compare
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: Number socho, user ko hint dete raho, sahi guess hone tak loop chalao.</p>
+        </div>
+
+        <!-- 4. Little Professor -->
+        <div class="group relative bg-gradient-to-br from-emerald-50 to-green-50 dark:from-gray-900 dark:to-emerald-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-emerald-200 dark:ring-emerald-700 hover:ring-emerald-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-500/20">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-emerald-500 to-green-600 text-white font-bold shadow-lg drop-shadow-md">4</div>
+            <h3 class="text-xl font-bold mb-3 text-emerald-700 dark:text-emerald-300">Little Professor</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Math quiz: level choose karo, random sums generate karo, score track karo.</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-800/30 text-emerald-700 dark:text-emerald-300 text-xs font-medium">
+                level→range + 3 tries + score
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: Level 1/2/3 se digits decide karo, 3 chances, sahi answer pe score++.</p>
+        </div>
+
+        <!-- 5. Bitcoin Price Index -->
+        <div class="group relative bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-gray-900 dark:to-amber-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-amber-200 dark:ring-amber-700 hover:ring-amber-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-amber-500/20 md:col-span-2 lg:col-span-1">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-amber-500 to-yellow-600 text-white font-bold shadow-lg drop-shadow-md">5</div>
+            <h3 class="text-xl font-bold mb-3 text-amber-700 dark:text-amber-300">Bitcoin Price Index</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Live API se Bitcoin price lao, user kitna khareedna chahe uska total batao.</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-800/30 text-amber-700 dark:text-amber-300 text-xs font-medium">
+                requests + JSON + CLI args
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: API hit karo, rate nikalo, amount se multiply karo, error handle karo.</p>
+        </div>
+    </div>
+
+    <!-- flashy summary row -->
+    <div class="mt-10 p-5 bg-gradient-to-r from-fuchsia-500/10 via-pink-500/10 to-rose-500/10 dark:from-fuchsia-500/20 dark:via-pink-500/20 dark:to-rose-500/20 rounded-2xl border border-fuchsia-300 dark:border-fuchsia-700 text-center">
+        <p class="font-bold text-slate-800 dark:text-slate-200">🚀 Quick Memory Trigger</p>
+        <p class="text-sm mt-2 text-slate-600 dark:text-slate-300">
+            Emojize → external lib | Letters → random.choice | Guessing → loop + hints | Professor → level + score | Bitcoin → API + JSON
+        </p>
+    </div>
+</section>
 <!-- =========  FOOTER  ========= -->
 <footer class="bg-gray-900 text-white py-8 mt-12">
     <div class="max-w-4xl mx-auto px-4 text-center text-gray-400">
