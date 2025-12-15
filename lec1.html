@@ -185,65 +185,65 @@ else:
 
     <!-- neon-gradient title -->
     <h2 class="text-4xl font-extrabold mb-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 drop-shadow-[0_0_10px_rgba(167,139,250,0.5)] dark:drop-shadow-[0_0_15px_rgba(196,181,253,0.6)]">
-        🎯 PSET 2 – Loops, Strings, Math
+        🎯 PSET 1 – Questions & Hints
     </h2>
 
     <!-- glowing card grid -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-        <!-- 1. Camel Case -->
-        <div class="group relative bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-900 dark:to-indigo-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/30 ring-1 ring-indigo-200 dark:ring-indigo-700 hover:ring-indigo-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-indigo-500/20">
+        <!-- 1. Indoor Voice -->
+        <div class="group relative bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-900 dark:to-indigo-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-indigo-200 dark:ring-indigo-700 hover:ring-indigo-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-indigo-500/20">
             <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-bold shadow-lg drop-shadow-md">1</div>
-            <h3 class="text-xl font-bold mb-3 text-indigo-700 dark:text-indigo-300">Camel Case</h3>
-            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Take a camelCase string (like helloWorld) → convert it to hello_world. Bro basically Python is asking you to humble the camel and turn it into a snake 🐍😩.</p>
+            <h3 class="text-xl font-bold mb-3 text-indigo-700 dark:text-indigo-300">Indoor Voice</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Take a string as input → print the same string but all in lowercase. Bro, basically your program is acting like “Shhh library warden mode ON.”</p>
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-800/30 text-indigo-700 dark:text-indigo-300 text-xs font-medium">
-                loop + .isupper() + "_"
+                <code>.lower()</code>
             </div>
-            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: Jab bhi bada letter dikhe, uske pehle "_" chipkao aur chhota bana do.</p>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish hint: Bas jo user likhe, usko chhota bana ke output de do. Like CAPS LOCK ka badla.</p>
         </div>
 
-        <!-- 2. Coke Machine -->
+        <!-- 2. Playback Speed -->
         <div class="group relative bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-900 dark:to-purple-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-purple-200 dark:ring-purple-700 hover:ring-purple-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-purple-500/20">
             <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-purple-500 to-pink-600 text-white font-bold shadow-lg drop-shadow-md">2</div>
-            <h3 class="text-xl font-bold mb-3 text-purple-700 dark:text-purple-300">Coke Machine</h3>
-            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">User needs to pay 50 cents. They insert coins: 25, 10, or 5. Keep subtracting from 50, print how much is due. When zero or negative → print change owed (if any).</p>
+            <h3 class="text-xl font-bold mb-3 text-purple-700 dark:text-purple-300">Playback Speed</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Replace all spaces " " in the input string with "..." Matlab user ka dialogue thoda dramatic bana dena.</p>
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-800/30 text-purple-700 dark:text-purple-300 text-xs font-medium">
-                while + subtraction + [25,10,5]
+                <code>str.replace(" ", "...")</code>
             </div>
-            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: User ko Coke kharidni hai. Jab tak 50 poora nahi hota, tab tak coins dalo. Baaki bacha toh “change owed”.</p>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish hint: Sab space ko teen dot mein badal do, jaise suspense ho.</p>
         </div>
 
-        <!-- 3. Just Setting Up My Twttr -->
+        <!-- 3. Making Faces -->
         <div class="group relative bg-gradient-to-br from-green-50 to-emerald-50 dark:from-gray-900 dark:to-green-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-green-200 dark:ring-green-700 hover:ring-green-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-green-500/20">
             <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-green-500 to-emerald-600 text-white font-bold shadow-lg drop-shadow-md">3</div>
-            <h3 class="text-xl font-bold mb-3 text-green-700 dark:text-green-300">Just Setting Up My Twttr</h3>
-            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Remove all vowels (a, e, i, o, u) from user input. Input: twitter → Output: twttr</p>
+            <h3 class="text-xl font-bold mb-3 text-green-700 dark:text-green-300">Making Faces</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Convert :) → 🙂 and :( → 🙁 (Using text emojis and replacing them.)</p>
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 dark:bg-green-800/30 text-green-700 dark:text-green-300 text-xs font-medium">
-                "aeiouAEIOU" + loop
+                replace inside function
             </div>
-            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: Twitter → Twttr. Bas vowels ka boycott chal raha hai.</p>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish hint: :) ko smiley emoji mein badalna hai, aur :( ko sad emoji mein. Bas 2 replace ka kaam.</p>
         </div>
 
-        <!-- 4. Vanity Plates -->
+        <!-- 4. Einstein -->
         <div class="group relative bg-gradient-to-br from-orange-50 to-amber-50 dark:from-gray-900 dark:to-orange-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-orange-200 dark:ring-orange-700 hover:ring-orange-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-orange-500/20">
             <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-orange-500 to-amber-600 text-white font-bold shadow-lg drop-shadow-md">4</div>
-            <h3 class="text-xl font-bold mb-3 text-orange-700 dark:text-orange-300">Vanity Plates</h3>
-            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Given a plate like "CS50", check if it's valid based on MASS rules: 2–6 chars, start with 2 letters, numbers only at end, first number ≠ 0, no punctuation.</p>
+            <h3 class="text-xl font-bold mb-3 text-orange-700 dark:text-orange-300">Einstein</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Compute <em>E = mc²</em> where <code>m</code> is input and <code>c = 300 000 000</code>. Matlab physics ke Einstein bhai ka formula use karna hai.</p>
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-800/30 text-orange-700 dark:text-orange-300 text-xs font-medium">
-                isalpha() + isdigit() + rules
+                <code>m * (300_000_000 ** 2)</code>
             </div>
-            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: Number beech mein nahi aayega, sirf end mein aayega. Aur zero se start nahi hoga. Plate ko thoda sanskari bana do.</p>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish hint: Bas mass lo, light-speed square karo aur multiply. Gandhiji bhi kar lenge.</p>
         </div>
 
-        <!-- 5. Nutrition Facts -->
-        <div class="group relative bg-gradient-to-br from-pink-50 to-rose-50 dark:from-gray-900 dark:to-pink-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/30 ring-1 ring-pink-200 dark:ring-pink-700 hover:ring-pink-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-pink-500/20 md:col-span-2 lg:col-span-1">
+        <!-- 5. Tip Calculator -->
+        <div class="group relative bg-gradient-to-br from-pink-50 to-rose-50 dark:from-gray-900 dark:to-pink-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-pink-200 dark:ring-pink-700 hover:ring-pink-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-pink-500/20 md:col-span-2 lg:col-span-1">
             <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-pink-500 to-rose-600 text-white font-bold shadow-lg drop-shadow-md">5</div>
-            <h3 class="text-xl font-bold mb-3 text-pink-700 dark:text-pink-300">Nutrition Facts</h3>
-            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Given a fruit name → print calories from CS50’s dictionary. Example: Input: "apple" → Output: Calories: 130</p>
+            <h3 class="text-xl font-bold mb-3 text-pink-700 dark:text-pink-300">Tip Calculator</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Ask for bill (e.g. $50.00) and tip % (e.g. 15 %) → calculate tip amount in dollars.</p>
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-100 dark:bg-pink-800/30 text-pink-700 dark:text-pink-300 text-xs font-medium">
-                dict + .lower()
+                strip $/% → float → <code>bill*(percent/100)</code>
             </div>
-            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: Fruit ka naam do, uski calories nikaalo. Bas Google ban jao thode time ke liye.</p>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish hint: Bill aur percent se symbols nikal do, number mein badal ke percentage ka hisaab laga do.</p>
         </div>
     </div>
 
@@ -251,7 +251,7 @@ else:
     <div class="mt-10 p-5 bg-gradient-to-r from-teal-500/10 via-cyan-500/10 to-blue-500/10 dark:from-teal-500/20 dark:via-cyan-500/20 dark:to-blue-500/20 rounded-2xl border border-teal-300 dark:border-teal-700 text-center">
         <p class="font-bold text-slate-800 dark:text-slate-200">🔥 Quick Memory Trigger</p>
         <p class="text-sm mt-2 text-slate-600 dark:text-slate-300">
-            Camel → snake_case | Coke → 50¢ coin loop | Twttr → vowel boycott | Plates → end-numbers only | Nutrition → dict lookup
+            Indoor → lowercase | Playback → replace spaces | Faces → replace :) / :( | Einstein → m×c² | Tip → clean $% → calc %
         </p>
     </div>
 </section>
