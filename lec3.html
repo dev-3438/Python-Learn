@@ -257,7 +257,80 @@ print("Thanks!")</textarea>
         </ul>
     </section>
 </main>
+<section class="reveal mt-12">
 
+    <!-- neon-gradient title -->
+    <h2 class="text-4xl font-extrabold mb-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 drop-shadow-[0_0_10px_rgba(45,212,191,0.5)] dark:drop-shadow-[0_0_15px_rgba(94,234,212,0.6)]">
+        🎯 PSET 3 – Exceptions, Files, CSV
+    </h2>
+
+    <!-- glowing card grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- 1. Fuel -->
+        <div class="group relative bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-gray-900 dark:to-emerald-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/30 ring-1 ring-emerald-200 dark:ring-emerald-700 hover:ring-emerald-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-500/20">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 text-white font-bold shadow-lg drop-shadow-md">1</div>
+            <h3 class="text-xl font-bold mb-3 text-emerald-700 dark:text-emerald-300">Fuel</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Take "3/4" → convert to 75%. If ≤1% print "E", if ≥99% print "F", else print XX%.</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-800/30 text-emerald-700 dark:text-emerald-300 text-xs font-medium">
+                try/except + split + round
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: Fraction valid ho, warna dubara pucho. 1% se kam? Tank almost khali. 99% se zyada? Tank full. Simple.</p>
+        </div>
+
+        <!-- 2. Felipe’s Taqueria -->
+        <div class="group relative bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-gray-900 dark:to-cyan-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-cyan-200 dark:ring-cyan-700 hover:ring-cyan-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-cyan-500/20">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 text-white font-bold shadow-lg drop-shadow-md">2</div>
+            <h3 class="text-xl font-bold mb-3 text-cyan-700 dark:text-cyan-300">Felipe’s Taqueria</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Input a food item → program prints its price. Case-insensitive, no errors if item not found.</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-800/30 text-cyan-700 dark:text-cyan-300 text-xs font-medium">
+                dict + .lower() + no errors
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: Menu mein milta ho toh price batao, warna chup chap reh jao.</p>
+        </div>
+
+        <!-- 3. Grocery List -->
+        <div class="group relative bg-gradient-to-br from-violet-50 to-purple-50 dark:from-gray-900 dark:to-violet-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-violet-200 dark:ring-violet-700 hover:ring-violet-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-violet-500/20">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-violet-500 to-purple-600 text-white font-bold shadow-lg drop-shadow-md">3</div>
+            <h3 class="text-xl font-bold mb-3 text-violet-700 dark:text-violet-300">Grocery List</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">User enters items one per line. When Ctrl-D pressed → print items alphabetically with quantities.</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-100 dark:bg-violet-800/30 text-violet-700 dark:text-violet-300 text-xs font-medium">
+                dict + EOFError + sort
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: User jab tak likhe, tab tak list banao. Ctrl+D aate hi totals dikha do.</p>
+        </div>
+
+        <!-- 4. Outdated -->
+        <div class="group relative bg-gradient-to-br from-amber-50 to-orange-50 dark:from-gray-900 dark:to-amber-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-amber-200 dark:ring-amber-700 hover:ring-amber-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-amber-500/20">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-amber-500 to-orange-600 text-white font-bold shadow-lg drop-shadow-md">4</div>
+            <h3 class="text-xl font-bold mb-3 text-amber-700 dark:text-amber-300">Outdated</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Convert dates into YYYY-MM-DD format. Accepts "September 8, 2022" or "9/8/2022" → output "2022-09-08".</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-800/30 text-amber-700 dark:text-amber-300 text-xs font-medium">
+                split + month list + zero-pad
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: Date chahe slashes mein ho ya English mein, akhir mein ISO format chahiye. Month ka number dhundo, baaki pad do.</p>
+        </div>
+
+        <!-- 5. File Extensions -->
+        <div class="group relative bg-gradient-to-br from-slate-50 to-gray-50 dark:from-gray-900 dark:to-slate-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/30 ring-1 ring-slate-200 dark:ring-slate-700 hover:ring-slate-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-500/20 md:col-span-2 lg:col-span-1">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-slate-500 to-gray-600 text-white font-bold shadow-lg drop-shadow-md">5</div>
+            <h3 class="text-xl font-bold mb-3 text-slate-700 dark:text-slate-300">File Extensions</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Input a filename → print its MIME type. cat.png → "image/png", unknown → "application/octet-stream".</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800/30 text-slate-700 dark:text-slate-300 text-xs font-medium">
+                .lower() + rsplit + dict
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: Bas file ka extension pakdo. Agar famous extension hua toh MIME type batao, warna “octet-stream” bhej do.</p>
+        </div>
+    </div>
+
+    <!-- flashy summary row -->
+    <div class="mt-10 p-5 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-cyan-500/10 dark:from-emerald-500/20 dark:via-teal-500/20 dark:to-cyan-500/20 rounded-2xl border border-emerald-300 dark:border-emerald-700 text-center">
+        <p class="font-bold text-slate-800 dark:text-slate-200">🔥 Quick Memory Trigger</p>
+        <p class="text-sm mt-2 text-slate-600 dark:text-slate-300">
+            Fuel → fraction → % | Taqueria → dict lookup | Grocery → EOF counter | Outdated → any→ISO | Extensions → ext→MIME
+        </p>
+    </div>
+</section>
 <footer class="bg-gray-900 text-white py-8 mt-12">
     <div class="max-w-4xl mx-auto px-4 text-center text-gray-400">© 2024 PythonLearn – built with ❤️ for every future Pythonista.</div>
 </footer>
