@@ -434,7 +434,81 @@ else:
         </ul>
     </section>
 </main>
+<!-- =========  PSET7 QUESTIONS & HINTS – DOPE STYLING  ========= -->
+<section class="reveal mt-12">
 
+    <!-- neon-gradient title -->
+    <h2 class="text-4xl font-extrabold mb-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-sky-500 via-cyan-500 to-teal-500 drop-shadow-[0_0_10px_rgba(14,165,233,0.5)] dark:drop-shadow-[0_0_15px_rgba(45,212,191,0.6)]">
+        📌 PSET 7 – Regular Expressions
+    </h2>
+
+    <!-- glowing card grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- 1. NUMB3RS -->
+        <div class="group relative bg-gradient-to-br from-sky-50 to-cyan-50 dark:from-gray-900 dark:to-sky-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/30 ring-1 ring-sky-200 dark:ring-sky-700 hover:ring-sky-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-sky-500/20">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-sky-500 to-cyan-600 text-white font-bold shadow-lg drop-shadow-md">1</div>
+            <h3 class="text-xl font-bold mb-3 text-sky-700 dark:text-sky-300">NUMB3RS</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">IPv4 address validator: x.x.x.x, each 0-255, no extras.</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100 dark:bg-sky-800/30 text-sky-700 dark:text-sky-300 text-xs font-medium">
+                regex + range check
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: Pattern pakdo, phir har octet 0-255 hai ya nahi—dono check karo.</p>
+        </div>
+
+        <!-- 2. Watch on YouTube -->
+        <div class="group relative bg-gradient-to-br from-rose-50 to-red-50 dark:from-gray-900 dark:to-rose-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-rose-200 dark:ring-rose-700 hover:ring-rose-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-rose-500/20">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-rose-500 to-red-600 text-white font-bold shadow-lg drop-shadow-md">2</div>
+            <h3 class="text-xl font-bold mb-3 text-rose-700 dark:text-rose-300">Watch on YouTube</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">HTML se youtube.com/embed/... ya youtu.be/... se video ID nikalo.</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-100 dark:bg-rose-800/30 text-rose-700 dark:text-rose-300 text-xs font-medium">
+                capturing groups
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: Group pakdo, ID extract karo, warna None.</p>
+        </div>
+
+        <!-- 3. Working 9 to 5 -->
+        <div class="group relative bg-gradient-to-br from-amber-50 to-orange-50 dark:from-gray-900 dark:to-amber-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-amber-200 dark:ring-amber-700 hover:ring-amber-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-amber-500/20">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-amber-500 to-orange-600 text-white font-bold shadow-lg drop-shadow-md">3</div>
+            <h3 class="text-xl font-bold mb-3 text-amber-700 dark:text-amber-300">Working 9 to 5</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">“9 AM to 5 PM” → “09:00 to 17:00”; AM/PM & optional minutes handle karo.</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-800/30 text-amber-700 dark:text-amber-300 text-xs font-medium">
+                regex parse + 24 h
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: Groups se hours-minutes nikalo, AM/PM check karo, convert karo.</p>
+        </div>
+
+        <!-- 4. Regular, um -->
+        <div class="group relative bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-gray-900 dark:to-emerald-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-emerald-200 dark:ring-emerald-700 hover:ring-emerald-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-500/20">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 text-white font-bold shadow-lg drop-shadow-md">4</div>
+            <h3 class="text-xl font-bold mb-3 text-emerald-700 dark:text-emerald-300">Regular, um</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Standalone “um” (case-insensitive) count karo; “yummy” ignore.</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-800/30 text-emerald-700 dark:text-emerald-300 text-xs font-medium">
+                \bum\b + re.IGNORECASE
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: Word boundary lagao, re.IGNORECASE daalo, count badhao.</p>
+        </div>
+
+        <!-- 5. Response Validation -->
+        <div class="group relative bg-gradient-to-br from-indigo-50 to-violet-50 dark:from-gray-900 dark:to-indigo-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-indigo-200 dark:ring-indigo-700 hover:ring-indigo-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-indigo-500/20 md:col-span-2 lg:col-span-1">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 text-white font-bold shadow-lg drop-shadow-md">5</div>
+            <h3 class="text-xl font-bold mb-3 text-indigo-700 dark:text-indigo-300">Response Validation</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Email validator: local@domain format sahi hai toh Valid, else Invalid.</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-800/30 text-indigo-700 dark:text-indigo-300 text-xs font-medium">
+                full RFC-style regex
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: Pattern strict rakho, local & domain dono check karo.</p>
+        </div>
+    </div>
+
+    <!-- quick memory trigger -->
+    <div class="mt-10 p-5 bg-gradient-to-r from-sky-500/10 via-cyan-500/10 to-teal-500/10 dark:from-sky-500/20 dark:via-cyan-500/20 dark:to-teal-500/20 rounded-2xl border border-sky-300 dark:border-sky-700 text-center">
+        <p class="font-bold text-slate-800 dark:text-slate-200">🧠 Quick Memory Trigger</p>
+        <p class="text-sm mt-2 text-slate-600 dark:text-slate-300">
+            IPv4 → octet bounds | YouTube → capture ID | 9-to-5 → AM/PM→24 h | um → word boundary | Email → local@domain regex
+        </p>
+    </div>
+</section>
 <footer class="bg-gray-900 text-white py-8 mt-12">
     <div class="max-w-4xl mx-auto px-4 text-center text-gray-400">© 2024 PythonLearn – built with ❤️ for every future Pythonista.</div>
 </footer>
