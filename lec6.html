@@ -149,7 +149,81 @@ with open("students.csv") as f:
         <div id="playground-out" class="output-box mt-3">Output will appear here…</div>
     </section>
 </main>
+<!-- =========  PSET6 QUESTIONS & HINTS – DOPE STYLING  ========= -->
+<section class="reveal mt-12">
 
+    <!-- neon-gradient title -->
+    <h2 class="text-4xl font-extrabold mb-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 drop-shadow-[0_0_10px_rgba(251,191,36,0.5)] dark:drop-shadow-[0_0_15px_rgba(245,158,11,0.6)]">
+        🚀 PSET 6 – Web + APIs
+    </h2>
+
+    <!-- glowing card grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- 1. Get Bitcoin Price -->
+        <div class="group relative bg-gradient-to-br from-yellow-50 to-amber-50 dark:from-gray-900 dark:to-yellow-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/30 ring-1 ring-yellow-200 dark:ring-yellow-700 hover:ring-yellow-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-yellow-500/20">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-yellow-400 to-amber-600 text-white font-bold shadow-lg drop-shadow-md">1</div>
+            <h3 class="text-xl font-bold mb-3 text-amber-700 dark:text-amber-300">Get Bitcoin Price</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">User se BTC amount lo, live USD price fetch karo, total cost dikhao.</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-100 dark:bg-yellow-800/30 text-amber-700 dark:text-amber-300 text-xs font-medium">
+                requests + JSON + 2-decimal
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: requests.get() → response.json() → multiply → f"{total:.2f}".</p>
+        </div>
+
+        <!-- 2. Cryptocurrency Portfolio -->
+        <div class="group relative bg-gradient-to-br from-orange-50 to-red-50 dark:from-gray-900 dark:to-orange-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-orange-200 dark:ring-orange-700 hover:ring-orange-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-orange-500/20">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-orange-500 to-red-600 text-white font-bold shadow-lg drop-shadow-md">2</div>
+            <h3 class="text-xl font-bold mb-3 text-orange-700 dark:text-orange-300">Crypto Portfolio</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Multiple coins + quantities → live prices → total portfolio value.</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-800/30 text-orange-700 dark:text-orange-300 text-xs font-medium">
+                dict + loop + sum
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: holdings = {"btc":0.5,"eth":2} → for coin,qty in holdings.items() → fetch → total += qty*price.</p>
+        </div>
+
+        <!-- 3. URL Shortener -->
+        <div class="group relative bg-gradient-to-br from-cyan-50 to-sky-50 dark:from-gray-900 dark:to-cyan-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-cyan-200 dark:ring-cyan-700 hover:ring-cyan-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-cyan-500/20">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-cyan-500 to-sky-600 text-white font-bold shadow-lg drop-shadow-md">3</div>
+            <h3 class="text-xl font-bold mb-3 text-cyan-700 dark:text-cyan-300">URL Shortener</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Long URL input karo, public API se short URL generate karo, print karo.</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-800/30 text-cyan-700 dark:text-cyan-300 text-xs font-medium">
+                POST JSON + parse response
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: requests.post(url, json={"long_url":...}) → response.json()["short_url"].</p>
+        </div>
+
+        <!-- 4. Weather Fetcher -->
+        <div class="group relative bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-blue-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-blue-200 dark:ring-blue-700 hover:ring-blue-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-blue-500/20">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-bold shadow-lg drop-shadow-md">4</div>
+            <h3 class="text-xl font-bold mb-3 text-blue-700 dark:text-blue-300">Weather Fetcher</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">City name lo, API se temp, description, humidity fetch karo, neat print karo.</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-800/30 text-blue-700 dark:text-blue-300 text-xs font-medium">
+                query params + JSON fields
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: f"api?q={city}" → data["main"]["temp"], data["weather"][0]["description"], etc.</p>
+        </div>
+
+        <!-- 5. Quotes API -->
+        <div class="group relative bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-900 dark:to-purple-900/30 rounded-2xl p-6 shadow-xl dark:shadow-black/40 ring-1 ring-purple-200 dark:ring-purple-700 hover:ring-purple-400 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-purple-500/20 md:col-span-2 lg:col-span-1">
+            <div class="absolute -top-3 -right-3 w-12 h-12 grid place-items-center rounded-full bg-gradient-to-br from-purple-500 to-pink-600 text-white font-bold shadow-lg drop-shadow-md">5</div>
+            <h3 class="text-xl font-bold mb-3 text-purple-700 dark:text-purple-300">Quotes API</h3>
+            <p class="text-sm mb-3 text-slate-700 dark:text-slate-300">Random inspirational quote fetch karo, classy format mein print karo: “quote” — author</p>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-800/30 text-purple-700 dark:text-purple-300 text-xs font-medium">
+                GET + JSON + f-string
+            </div>
+            <p class="text-xs mt-3 text-slate-500 dark:text-slate-400">Hinglish: requests.get() → quote = data["quote"], author = data["author"] → print(f'“{quote}” — {author}').</p>
+        </div>
+    </div>
+
+    <!-- topper memory sheet -->
+    <div class="mt-10 p-5 bg-gradient-to-r from-yellow-500/10 via-orange-500/10 to-red-500/10 dark:from-yellow-500/20 dark:via-orange-500/20 dark:to-red-500/20 rounded-2xl border border-yellow-300 dark:border-yellow-700 text-center">
+        <p class="font-bold text-slate-800 dark:text-slate-200">🧠 Topper Memory Sheet</p>
+        <p class="text-sm mt-2 text-slate-600 dark:text-slate-300">
+            Bitcoin → input × live price | Portfolio → loop + sum multiple coins | URL Shortener → API POST / JSON parsing | Weather → JSON fields + formatting | Quotes → GET request + string formatting
+        </p>
+    </div>
+</section>
 <!-- =========  FOOTER  ========= -->
 <footer class="bg-gray-900 text-white py-8 mt-12">
     <div class="max-w-4xl mx-auto px-4 text-center text-gray-400">
