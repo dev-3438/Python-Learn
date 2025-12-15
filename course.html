@@ -833,186 +833,157 @@ I'm ready to learn Python!</div>
     <script src="main.js"></script>
     
     <!-- Course-specific JavaScript -->
-    <script>
-        // Initialize course page functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Chapter expansion functionality
-            const chapters = document.querySelectorAll('.chapter');
-            chapters.forEach(chapter => {
-                const header = chapter.querySelector('.chapter-header');
-                header.addEventListener('click', () => {
-                    const isExpanded = chapter.classList.contains('expanded');
-                    
-                    // Close all chapters
-                    chapters.forEach(c => c.classList.remove('expanded'));
-                    
-                    // Open clicked chapter if it wasn't already open
-                    if (!isExpanded) {
-                        chapter.classList.add('expanded');
-                    }
-                });
-            });
-            
-            // Lesson expansion functionality
-            const lessons = document.querySelectorAll('.lesson-item');
-            lessons.forEach(lesson => {
-                lesson.addEventListener('click', () => {
-                    const lessonId = lesson.getAttribute('data-lesson');
-                    const content = document.getElementById(`content-${lessonId.split('-')[1]}-${lessonId.split('-')[2]}`);
-                    
-                    if (content) {
-                        content.classList.toggle('hidden');
-                    }
-                    
-                    // Mark lesson as complete (visual feedback)
-                    const check = lesson.querySelector('.completion-check');
-                    if (!check.classList.contains('completed')) {
-                        check.classList.add('completed');
-                        check.textContent = '✅';
-                        
-                        // Update progress
-                        updateProgress();
-                    }
-                });
-            });
-            
-            // Quiz functionality
-            let currentQuestion = 0;
-            let quizScore = 0;
-            const quizQuestions = [
-                {
-                    question: "Which of the following is the correct way to create a variable in Python?",
-                    options: ["var x = 5", "x = 5", "int x = 5", "create x = 5"],
-                    correct: 1,
-                    explanation: "In Python, you create variables by simply assigning a value: x = 5"
-                },
-                {
-                    question: "What function is used to display output in Python?",
-                    options: ["display()", "print()", "output()", "show()"],
-                    correct: 1,
-                    explanation: "The print() function is used to display output in Python."
-                },
-                {
-                    question: "Which of these is a valid string in Python?",
-                    options: ['"Hello"', "'World'", '"""Python"""", "All of the above"],
-                    correct: 3,
-                    explanation: "All of these are valid ways to create strings in Python."
-                }
-            ];
-            
-            function loadQuestion() {
-                const question = quizQuestions[currentQuestion];
-                const container = document.getElementById('quiz-question-container');
-                
-                container.innerHTML = `
-                    <div class="mb-6">
-                        <h4 class="text-lg font-semibold mb-4">Question ${currentQuestion + 1} of ${quizQuestions.length}</h4>
-                        <p class="text-gray-800 mb-4">${question.question}</p>
-                        
-                        <div class="space-y-3">
-                            ${question.options.map((option, index) => `
-                                <button class="quiz-option w-full p-4 text-left border rounded-lg hover:bg-gray-100 transition-colors" data-answer="${index}">
-                                    ${String.fromCharCode(65 + index)}. ${option}
-                                </button>
-                            `).join('')}
-                        </div>
-                    </div>
-                    
-                    <div id="quiz-feedback" class="hidden mb-4"></div>
-                    
-                    <div class="flex justify-between items-center">
-                        <div class="text-sm text-gray-600">
-                            Score: <span id="quiz-score">${quizScore}</span>/${quizQuestions.length}
-                        </div>
-                        <button id="next-question" class="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-colors" disabled>
-                            ${currentQuestion < quizQuestions.length - 1 ? 'Next Question' : 'Finish Quiz'}
-                        </button>
-                    </div>
-                `;
-                
-                // Add event listeners to options
-                const options = container.querySelectorAll('.quiz-option');
-                options.forEach(option => {
-                    option.addEventListener('click', handleAnswer);
-                });
-            }
-            
-            function handleAnswer(e) {
-                const selectedAnswer = parseInt(e.target.getAttribute('data-answer'));
-                const question = quizQuestions[currentQuestion];
-                const isCorrect = selectedAnswer === question.correct;
-                
-                if (isCorrect) {
-                    quizScore++;
-                }
-                
-                // Show feedback
-                const feedback = document.getElementById('quiz-feedback');
-                feedback.innerHTML = `
-                    <div class="p-4 rounded-lg ${isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
-                        <p class="font-bold">${isCorrect ? 'Correct!' : 'Incorrect'}</p>
-                        <p>${question.explanation}</p>
-                    </div>
-                `;
-                feedback.classList.remove('hidden');
-                
-                // Update score display
-                document.getElementById('quiz-score').textContent = quizScore;
-                
-                // Enable next button
-                document.getElementById('next-question').disabled = false;
-                document.getElementById('next-question').addEventListener('click', nextQuestion);
-                
-                // Disable all options
-                options.forEach(option => {
-                    option.disabled = true;
-                    option.removeEventListener('click', handleAnswer);
-                });
-            }
-            
-            function nextQuestion() {
-                currentQuestion++;
-                if (currentQuestion < quizQuestions.length) {
-                    loadQuestion();
-                } else {
-                    showQuizResults();
-                }
-            }
-            
-            function showQuizResults() {
-                const container = document.getElementById('quiz-question-container');
-                const percentage = Math.round((quizScore / quizQuestions.length) * 100);
-                
-                container.innerHTML = `
-                    <div class="text-center">
-                        <h4 class="text-2xl font-bold mb-4">Quiz Complete!</h4>
-                        <div class="text-6xl mb-4">${percentage >= 70 ? '🎉' : percentage >= 50 ? '👍' : '💪'}</div>
-                        <p class="text-xl mb-2">Your Score: ${quizScore}/${quizQuestions.length} (${percentage}%)</p>
-                        <p class="text-gray-600 mb-6">${percentage >= 70 ? 'Excellent work!' : percentage >= 50 ? 'Good job!' : 'Keep practicing!'}</p>
-                        <button onclick="location.reload()" class="bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition-colors">
-                            Retake Quiz
-                        </button>
-                    </div>
-                `;
-            }
-            
-            function updateProgress() {
-                const completedLessons = document.querySelectorAll('.completion-check.completed').length;
-                const totalLessons = document.querySelectorAll('.completion-check').length;
-                const progressPercentage = Math.round((completedLessons / totalLessons) * 100);
-                
-                document.getElementById('overall-progress').textContent = `${progressPercentage}%`;
-                
-                // Update progress bars
-                const progressBars = document.querySelectorAll('.progress-fill');
-                progressBars.forEach(bar => {
-                    bar.style.width = `${progressPercentage}%`;
-                });
-            }
-            
-            // Initialize first question
-            loadQuestion();
+   <!-- =========  FIXED COURSE SCRIPT  ========= -->
+<script>
+/* ===========================================================
+   PYTHON COURSE PAGE – BUG-FREE, SELF-CONTAINED
+   =========================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+    /* ----------  CHAPTER / LESSON ACCORDION  ---------------- */
+    const chapters = document.querySelectorAll('.chapter');
+    chapters.forEach(chapter => {
+        const header = chapter.querySelector('.chapter-header');
+        header.addEventListener('click', () => {
+            const wasOpen = chapter.classList.contains('expanded');
+            chapters.forEach(c => c.classList.remove('expanded'));   // close others
+            if (!wasOpen) chapter.classList.add('expanded');         // open clicked
         });
-    </script>
+    });
+
+    /* ----------  LESSON CONTENT TOGGLE  -------------------- */
+    const lessons = document.querySelectorAll('.lesson-item');
+    lessons.forEach(lesson => {
+        lesson.addEventListener('click', e => {
+            e.stopPropagation();                                   // keep chapter open
+            const [, chapIdx, lesIdx] = lesson.dataset.lesson.split('-').map(Number);
+            const contentId = `content-${chapIdx}-${lesIdx}`;
+            const content   = document.getElementById(contentId);
+            if (!content) return;
+
+            content.classList.toggle('hidden');                    // show/hide lesson body
+
+            /* mark lesson completed once opened */
+            const check = lesson.querySelector('.completion-check');
+            if (!check.classList.contains('completed')) {
+                check.classList.add('completed');
+                check.textContent = '✅';
+                updateOverallProgress();
+            }
+        });
+    });
+
+    /* ----------  MINI QUIZ ENGINE  ------------------------- */
+    const quizData = [
+        {
+            question: "Which is the correct way to create a variable in Python?",
+            options: ["var x = 5", "x = 5", "int x = 5", "create x = 5"],
+            correct: 1,
+            explanation: "Python uses simple assignment:  x = 5  – no keywords needed."
+        },
+        {
+            question: "What function displays output in Python?",
+            options: ["display()", "print()", "output()", "show()"],
+            correct: 1,
+            explanation: "print() sends text to the standard output."
+        },
+        {
+            question: "Which of these is **not** a valid string delimiter in Python?",
+            options: ['"hi"', "'hi'", "`hi`", '"""hi"""'],
+            correct: 2,
+            explanation: "Back-quotes (`) are **not** string delimiters in Python."
+        }
+    ];
+
+    let currentQ  = 0;
+    let quizScore = 0;
+
+    const qContainer = document.getElementById('quiz-question-container');
+    if (!qContainer) return;                // safety if quiz block removed
+
+    function loadQuestion() {
+        const q = quizData[currentQ];
+        qContainer.innerHTML = `
+          <div class="mb-6">
+            <h4 class="text-lg font-semibold mb-4">Question ${currentQ + 1} of ${quizData.length}</h4>
+            <p class="text-gray-800 mb-4">${q.question}</p>
+            <div class="space-y-3">
+              ${q.options.map((opt, i) => `
+                <button class="quiz-option w-full p-4 text-left border rounded-lg hover:bg-gray-100 transition-colors" data-idx="${i}">
+                  ${String.fromCharCode(65 + i)}. ${opt}
+                </button>`).join('')}
+            </div>
+          </div>
+          <div id="quiz-feedback" class="hidden mb-4"></div>
+          <div class="flex justify-between items-center">
+            <div class="text-sm text-gray-600">Score: <span id="quiz-score">${quizScore}</span>/${quizData.length}</div>
+            <button id="next-quiz-btn" class="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-colors" disabled>
+              ${currentQ < quizData.length - 1 ? 'Next Question' : 'Finish Quiz'}
+            </button>
+          </div>`;
+
+        qContainer.querySelectorAll('.quiz-option').forEach(btn =>
+            btn.addEventListener('click', handleAnswer)
+        );
+    }
+
+    function handleAnswer(e) {
+        const selected = Number(e.currentTarget.dataset.idx);
+        const q        = quizData[currentQ];
+        const correct  = selected === q.correct;
+        if (correct) quizScore++;
+
+        /* visual feedback */
+        qContainer.querySelectorAll('.quiz-option').forEach((b, i) => {
+            b.disabled = true;
+            if (i === selected) b.classList.add(correct ? 'bg-green-200' : 'bg-red-200');
+            if (i === q.correct) b.classList.add('bg-green-200');
+        });
+
+        document.getElementById('quiz-score').textContent = quizScore;
+        const fb = document.getElementById('quiz-feedback');
+        fb.innerHTML = `<div class="p-4 rounded-lg ${correct ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                          <p class="font-bold">${correct ? 'Correct!' : 'Incorrect'}</p>
+                          <p>${q.explanation}</p>
+                        </div>`;
+        fb.classList.remove('hidden');
+
+        document.getElementById('next-quiz-btn').disabled = false;
+        document.getElementById('next-quiz-btn').addEventListener('click', nextQuestion);
+    }
+
+    function nextQuestion() {
+        currentQ++;
+        if (currentQ < quizData.length) loadQuestion();
+        else showResults();
+    }
+
+    function showResults() {
+        const pct = Math.round((quizScore / quizData.length) * 100);
+        qContainer.innerHTML = `
+          <div class="text-center">
+            <h4 class="text-2xl font-bold mb-4">Quiz Complete!</h4>
+            <div class="text-6xl mb-4">${pct >= 70 ? '🎉' : pct >= 50 ? '👍' : '💪'}</div>
+            <p class="text-xl mb-2">Your Score: ${quizScore}/${quizData.length} (${pct}%)</p>
+            <p class="text-gray-600 mb-6">${pct >= 70 ? 'Excellent work!' : pct >= 50 ? 'Good job!' : 'Keep practicing!'}</p>
+            <button onclick="location.reload()" class="bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition-colors">Retake Quiz</button>
+          </div>`;
+    }
+
+    /* ----------  PROGRESS BAR  ----------------------------- */
+    function updateOverallProgress() {
+        const completed = document.querySelectorAll('.completion-check.completed').length;
+        const total     = document.querySelectorAll('.completion-check').length;
+        const pct       = total ? Math.round((completed / total) * 100) : 0;
+
+        document.getElementById('overall-progress').textContent = `${pct}%`;
+        document.querySelectorAll('.progress-fill').forEach(bar => bar.style.width = `${pct}%`);
+    }
+
+    /* ----------  BOOTSTRAP  -------------------------------- */
+    loadQuestion();            // render first quiz question
+    updateOverallProgress();   // initialise progress bar
+});
+</script>
+<!-- =========  END FIXED SCRIPT  ========= -->
 </body>
 </html>
